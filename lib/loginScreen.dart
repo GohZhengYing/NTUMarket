@@ -94,16 +94,18 @@ Widget buildForgetPasswordButton() {
     child: TextButton(
       style: TextButton.styleFrom(
         textStyle: const TextStyle(
-          fontSize: 20,
+          fontSize: 15,
           color: Colors.black12,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w400,
         ),
       ),
       onPressed: () => print("Forgot Password Pressed"),
       child: const Text(
         'Forget Password',
         style: TextStyle(
-            color: Color.fromARGB(255, 1, 78, 68)), //forget Password text color
+            fontSize: 15,
+            color:
+                Color.fromARGB(255, 0, 139, 121)), //forget Password text color
       ),
     ),
   );
@@ -137,15 +139,25 @@ Widget buildSignUpButton() {
             text: "Don\'t have an account?",
             style: TextStyle(
                 color: Colors.black,
-                fontSize: 18,
+                fontSize: 14,
                 fontWeight: FontWeight.w300)),
         TextSpan(
             text: 'Sign Up',
             style: TextStyle(
-                color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold))
+                color: Colors.green, fontSize: 14, fontWeight: FontWeight.bold))
       ]),
     ),
   );
+}
+
+Widget circleWidget() {
+  return Container(
+      width: 220,
+      height: 220,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Color.fromRGBO(147, 236, 227, 0.84),
+      ));
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -157,6 +169,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: GestureDetector(
           child: Stack(
             children: <Widget>[
+              Positioned(
+                child: circleWidget(),
+                right: -100,
+                top: -100,
+              ),
+              Positioned(
+                child: circleWidget(),
+                right: 0,
+                top: -150,
+              ),
               Container(
                 height: double.infinity,
                 width: double.infinity,
@@ -165,10 +187,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
+                      Color.fromARGB(111, 203, 241, 238),
+                      Color.fromARGB(161, 222, 238, 236),
+                      Color.fromARGB(213, 224, 240, 238),
                       Color.fromRGBO(147, 236, 227, 1),
-                      Color.fromRGBO(147, 236, 227, 0.84),
-                      Color.fromRGBO(147, 236, 227, 0.64),
-                      Color.fromRGBO(147, 236, 227, 0.44),
                     ])),
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
