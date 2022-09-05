@@ -1,66 +1,43 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'loginScreen.dart';
+import 'package:cz3002app/Screens/Welcome/welcome_screen.dart';
+import 'package:cz3002app/constants.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
     return MaterialApp(
-      title: 'Landing Page',
-      home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Auth',
+      theme: ThemeData(
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              primary: kPrimaryColor,
+              shape: const StadiumBorder(),
+              maximumSize: const Size(double.infinity, 56),
+              minimumSize: const Size(double.infinity, 56),
+            ),
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            filled: true,
+            fillColor: kPrimaryLightColor,
+            iconColor: kPrimaryColor,
+            prefixIconColor: kPrimaryColor,
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: defaultPadding, vertical: defaultPadding),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide.none,
+            ),
+          )),
+      home: const WelcomeScreen(),
     );
   }
 }
-
-// class MyHomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     return Scaffold(
-//         body: Center(
-//       child: Container(
-//         height: 800, width: 300, color: Colors.blue,
-//         child: Stack(children: <Widget>[
-//           Container(
-//             width: 200,
-//             height: 500,
-//             color: Colors.red,
-//           ),
-//           Container(
-//             width: 200,
-//             height: 300,
-//             color: Colors.black,
-//           )
-//         ]),
-//         // child: Text(
-//         //   'NTUMarket',
-//         //   style: TextStyle(
-//         //     color: Color.fromARGB(255, 7, 0, 95),
-//         //     fontSize: 50,
-//         //     fontWeight: FontWeight.bold,
-//         //   ),
-//       ),
-//     ));
-//   }
-// }
-
-// class buildBackGround extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     return Center(
-//       child: Container(
-//         width: 400,
-//         height: 800,
-//         color: Colors.grey,
-//       ),
-//     );
-//   }
-// }
