@@ -49,6 +49,9 @@ class MobileLoginScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         const LoginScreenTopImage(),
+        const SizedBox(
+          height: 150,
+        ),
         Row(
           children: const [
             Spacer(),

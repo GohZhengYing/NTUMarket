@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cz3002app/Screens/Welcome/welcome_screen.dart';
 import 'package:cz3002app/constants.dart';
+import 'Screens/ResetPassword/resetpassword_screen.dart';
 
 void main() => runApp(const MyApp());
 
