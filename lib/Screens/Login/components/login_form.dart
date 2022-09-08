@@ -1,9 +1,11 @@
+import 'package:cz3002app/Screens/ViewPostAsBuyer/component/Product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../Signup/signup_screen.dart';
 import '../../ForgetPassword/forgetpassword_screen.dart';
+import '../../ViewPostAsBuyer/try_screen.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -75,7 +77,9 @@ class LoginForm extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ForgetPasswordScreen();
+                    return DetailsScreen(
+                      product: demo_product[0],
+                    ); //forgetpassaword screen
                   },
                 ),
               );
