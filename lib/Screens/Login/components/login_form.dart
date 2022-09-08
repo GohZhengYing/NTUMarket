@@ -5,7 +5,7 @@ import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../Signup/signup_screen.dart';
 import '../../ForgetPassword/forgetpassword_screen.dart';
-import '../../ViewPostAsBuyer/try_screen.dart';
+import '../../ViewPostAsBuyer/ViewPostAsBuyer_Screen.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -77,7 +77,7 @@ class LoginForm extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return DetailsScreen(
+                    return ViewPostAsBuyerScreen(
                       product: demo_product[0],
                     ); //forgetpassaword screen
                   },

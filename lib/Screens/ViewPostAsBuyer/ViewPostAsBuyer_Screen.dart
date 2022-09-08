@@ -5,8 +5,9 @@ import 'component/Product.dart';
 
 import 'component/colordot.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key, required this.product}) : super(key: key);
+class ViewPostAsBuyerScreen extends StatelessWidget {
+  const ViewPostAsBuyerScreen({Key? key, required this.product})
+      : super(key: key);
 
   final Product product;
 
