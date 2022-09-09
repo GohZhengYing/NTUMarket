@@ -17,7 +17,7 @@ class ViewPostAsBuyerScreen extends StatelessWidget {
       extendBodyBehindAppBar: false,
       backgroundColor: product.bgColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const BackButton(color: Colors.black),
         actions: [
