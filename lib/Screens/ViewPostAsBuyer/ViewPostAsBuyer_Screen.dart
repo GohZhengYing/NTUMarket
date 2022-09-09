@@ -14,9 +14,11 @@ class ViewPostAsBuyerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: false,
       backgroundColor: product.bgColor,
       appBar: AppBar(
-        backgroundColor: kPrimaryColor,
+        backgroundColor: Colors.white,
+        elevation: 0,
         leading: const BackButton(color: Colors.black),
         actions: [
           IconButton(
@@ -74,11 +76,11 @@ class ViewPostAsBuyerScreen extends StatelessWidget {
                       "An past year examination paper that has been used by me",
                     ),
                   ),
-                  Text(
-                    "Colors",
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                  const SizedBox(height: defaultPadding / 2),
+                  // Text(
+                  //   "Colors",
+                  //   style: Theme.of(context).textTheme.subtitle2,
+                  // ),
+                  // const SizedBox(height: defaultPadding / 2),
                   // Row(
                   //   children: const [
                   //     const Spacer(),
