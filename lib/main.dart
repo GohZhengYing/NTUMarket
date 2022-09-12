@@ -1,9 +1,14 @@
+import 'package:cz3002app/Screens/AdvanceSearch/AdvanceSearch.dart';
+import 'package:cz3002app/Screens/Login/login_screen.dart';
+import 'package:cz3002app/Screens/Settings/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:cz3002app/Screens/Welcome/welcome_screen.dart';
 import 'package:cz3002app/constants.dart';
 import 'Screens/ResetPassword/resetpassword_screen.dart';
 
 void main() => runApp(const MyApp());
+//void main() => runApp(const LoginScreen());
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
