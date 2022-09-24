@@ -11,6 +11,8 @@ class CreatePostForm extends StatefulWidget {
 
   @override
   _CreatePostForm createState() => _CreatePostForm();
+
+
 }
 
 class _CreatePostForm extends State<CreatePostForm> {
@@ -23,10 +25,11 @@ class _CreatePostForm extends State<CreatePostForm> {
   ];
 
 
-
   @override
+
   Widget build(BuildContext context) {
     return Form(
+
       child: Column(
         children: [
           TextFormField(
@@ -78,8 +81,10 @@ class _CreatePostForm extends State<CreatePostForm> {
             },
           ),
           SizedBox(height: 5,),
+
           TextFormField(
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
             textInputAction: TextInputAction.done,
             cursorColor: kPrimaryColor,
             onSaved: (description) {},
@@ -91,6 +96,7 @@ class _CreatePostForm extends State<CreatePostForm> {
               ),
             ),
           ),
+
           const SizedBox(
             height: 20,
           ),
@@ -98,7 +104,7 @@ class _CreatePostForm extends State<CreatePostForm> {
             tag: "save_edit_button",
             child: ElevatedButton(
               onPressed: () {},
-              child: Text(
+              child: const Text(
                 "List It",
               ),
             ),

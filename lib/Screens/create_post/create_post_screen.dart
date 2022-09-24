@@ -15,6 +15,7 @@ import 'component/create_post_image.dart';
 class CreatePostScreen extends StatelessWidget {
   const CreatePostScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -54,6 +55,7 @@ class CreatePostScreen extends StatelessWidget {
                       child: CreatePostForm(),
                     ),
                     Spacer(),
+
                   ]
               ),
             ],

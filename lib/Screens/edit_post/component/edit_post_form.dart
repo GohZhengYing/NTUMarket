@@ -44,7 +44,8 @@ class EditPostForm extends StatelessWidget {
             ),
           ),
           TextFormField(
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
             textInputAction: TextInputAction.done,
             cursorColor: kPrimaryColor,
             onSaved: (description) {},

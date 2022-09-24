@@ -22,7 +22,10 @@ class CreatePostImage extends StatelessWidget {
             Spacer(),
           ],
         ),
-
+        const Icon(
+            Icons.add_a_photo_outlined,
+            size:30.0,
+        ),
       ],
     );
   }
