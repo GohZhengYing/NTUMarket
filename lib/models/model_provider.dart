@@ -81,13 +81,12 @@ Future<bool> CreatePost(String title,String description,String price, String ima
   print(title+','+description+','+price+','+image+','+category);
   final PostStorage postStorage = new PostStorage();
 
-  Iterable l = await postStorage.readPost();
-  List<Post> posts = List<Post>.from(l.map((model)=> Post.fromJson(model)));
+
+  List<Post> posts = await postStorage.readPost();
 
   // List<Post> posts = [Post(title:'title',price: 'price',image: 'image',category: 'category',description: 'description'),Post(title:'title',price: 'price',image: 'image',category: 'category',description: 'description')];
   //
   // postStorage.writePost(posts);
-  print(await posts);
   // var response = await http.post(Uri.http(url, "post"), body: {
   //   "token":user.token,
   //   "image": image,

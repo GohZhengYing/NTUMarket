@@ -27,9 +27,11 @@ class PostStorage {
       try {
         // Read the file
         final contents = await file.readAsString();
-
         Iterable l = await json.decode(contents);
-        List<Post> posts = List<Post>.from(l.map((model)=> Post.fromJson(model)));
+        List<Post> posts = [];
+        for(int i =0;i<l.length;i++){
+        posts.add(Post.fromJson( l.elementAt(i)));}
+        print(posts);
         return posts;
       } catch (e) {
         // If encountering an error, return 0
@@ -46,6 +48,7 @@ class PostStorage {
 
     //List<Post> encodedPosts = List<Post>.from(posts.map((model)=> json.encode(model)));
     // Write the file
+    print(json.encode(posts));
     return file.writeAsString(json.encode(posts));
   }
 }
