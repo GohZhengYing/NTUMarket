@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
+import '../../../models/model_provider.dart';
 import '../../Login/login_screen.dart';
+import '../../home/home_screen.dart';
 
 class SignUpForm extends StatelessWidget {
-  const SignUpForm({
+  SignUpForm({
     Key? key,
   }) : super(key: key);
+
+  final email_input = TextEditingController();
+  final password_input = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +20,7 @@ class SignUpForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            controller: email_input,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
@@ -30,6 +36,7 @@ class SignUpForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
+              controller: password_input,
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
@@ -44,7 +51,18 @@ class SignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              if(await Signup(email_input.text,password_input.text)){
+                print('signed up');
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => HomeScreen()
+                    )
+                );
+              }
+              else
+                print('signup failed');
+
+            },
             child: Text("Sign Up".toUpperCase()),
           ),
           const SizedBox(height: defaultPadding),

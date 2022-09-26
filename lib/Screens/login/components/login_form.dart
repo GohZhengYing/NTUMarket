@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
+import '../../../models/model_provider.dart';
 import '../../Signup/signup_screen.dart';
 
 import '../../forget_password/forget_password_screen.dart';
@@ -9,9 +10,12 @@ import '../../home/home_screen.dart';
 
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({
+  LoginForm({
     Key? key,
   }) : super(key: key);
+
+  final email_input = TextEditingController();
+  final password_input = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +23,7 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            controller: email_input,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
@@ -34,6 +39,7 @@ class LoginForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
+              controller: password_input,
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
@@ -50,11 +56,17 @@ class LoginForm extends StatelessWidget {
           Hero(
             tag: "login_btn",
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => HomeScreen()
-                  )
-                );
+              onPressed: () async {
+                if(await Login(email_input.text,password_input.text)){
+                  print('logged in');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => HomeScreen()
+                    )
+                  );
+                }
+                else
+                  print('login failed');
+
               },
               child: Text(
                 "Login".toUpperCase(),

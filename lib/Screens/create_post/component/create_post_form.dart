@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../models/model_provider.dart';
 
 
 class CreatePostForm extends StatefulWidget {
@@ -18,6 +19,12 @@ class CreatePostForm extends StatefulWidget {
 class _CreatePostForm extends State<CreatePostForm> {
   String dropdownvalue = 'Electronics';
 
+  final title_input = TextEditingController();
+  final description_input = TextEditingController();
+  final price_input = TextEditingController();
+  final category_input = TextEditingController();
+  final image_input = TextEditingController();
+
   var items = [
     'Electronics',
     'Textbook',
@@ -28,11 +35,14 @@ class _CreatePostForm extends State<CreatePostForm> {
   @override
 
   Widget build(BuildContext context) {
+    category_input.text = 'Electronics';
+    image_input.text = 'image';
     return Form(
 
       child: Column(
         children: [
           TextFormField(
+            controller: title_input,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
@@ -48,6 +58,7 @@ class _CreatePostForm extends State<CreatePostForm> {
           Padding(
             padding:  const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
+              controller: price_input,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
@@ -77,12 +88,14 @@ class _CreatePostForm extends State<CreatePostForm> {
             onChanged: (String? newValue) {
               setState((){
                 dropdownvalue = newValue!;
+                category_input.text = newValue;
               });
             },
           ),
           SizedBox(height: 5,),
 
           TextFormField(
+            controller: description_input,
             keyboardType: TextInputType.multiline,
             maxLines: null,
             textInputAction: TextInputAction.done,
@@ -103,7 +116,18 @@ class _CreatePostForm extends State<CreatePostForm> {
           Hero(
             tag: "save_edit_button",
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                if(await CreatePost(title_input.text ,description_input.text,price_input.text,image_input.text,category_input.text)){
+                  print('created post');
+                  // Navigator.of(context).push(
+                  //     MaterialPageRoute(builder: (context) => HomeScreen()
+                  //     )
+                  // );
+                }
+                else
+                  print('post failed');
+
+              },
               child: const Text(
                 "List It",
               ),

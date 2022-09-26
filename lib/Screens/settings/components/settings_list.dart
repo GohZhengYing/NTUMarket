@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+import '../../../models/user.dart';
 import '../../Login/login_screen.dart';
 import '../../edit_profile/edit_profile_screen.dart';
 
@@ -37,6 +38,9 @@ class SettingsList extends StatelessWidget {
           style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))
           ,),
         OutlinedButton(onPressed: () {
+          final UserStorage userStorage = new UserStorage();
+          userStorage.writeUser(User(email: '',token: '',image: ''));
+          print("logged out");
           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const LoginScreen()));
         },
           child: const Text('Log Out',style: TextStyle(color: Colors.black)),
