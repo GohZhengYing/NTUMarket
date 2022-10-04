@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../models/post.dart';
 import 'components/edit_profile_list.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  Post post;
+  EditProfileScreen({Key? key,required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context){

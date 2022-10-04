@@ -1,16 +1,54 @@
+import 'dart:convert';
+
+import 'package:NtuMarket/models/model_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants.dart';
+import '../../models/post.dart';
+import '../../models/user.dart';
 import '../view_post_as_buyer_email/view_post_as_buyer_email_screen.dart';
 import 'component/Product.dart';
 
 import 'component/colordot.dart';
 
-class ViewPostAsBuyerScreen extends StatelessWidget {
-  const ViewPostAsBuyerScreen({Key? key, required this.product})
+class ViewPostAsBuyerScreen extends StatefulWidget {
+  ViewPostAsBuyerScreen({Key? key, required this.post})
       : super(key: key);
 
-  final Product product;
+  final Post post;
+
+  @override
+  _ViewPostAsBuyerScreenState createState() => _ViewPostAsBuyerScreenState();
+}
+
+class _ViewPostAsBuyerScreenState extends State<ViewPostAsBuyerScreen> {
+
+  User user = new User(email: '', token: '', image: '', favourite_id: []);
+
+  MaterialColor fav = Colors.grey ;
+
+  Future<void> LoadUser() async {
+    super.initState();
+    final UserStorage userStorage = new UserStorage();
+    User _user = User.fromJson(await userStorage.readUser());
+    print(_user.favourite_id);
+    print(widget.post.id);
+    setState(() {
+      if(_user.favourite_id.contains(widget.post.id)){
+        fav = Colors.yellow;
+      }
+      user = _user;
+    });
+  }
+
+  // This widget is the root of your application.
+
+  void initState(){
+    super.initState();
+    LoadUser();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,31 +57,36 @@ class ViewPostAsBuyerScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           extendBodyBehindAppBar: false,
-          backgroundColor: product.bgColor,
+          backgroundColor: const Color(0xFFFEFBF9),
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            leading: IconButton(onPressed:() {Navigator.pop(context);}, icon: Icon(Icons.keyboard_arrow_left),color: Colors.black,iconSize: 40),
+            leading: IconButton(onPressed:() {Navigator.pop(context,'refresh');}, icon: Icon(Icons.keyboard_arrow_left),color: Colors.black,iconSize: 40),
             actions: [
               IconButton(
-                onPressed: () {},
-                icon: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Image.asset(
-                    "assets/images/Dora.jpg",
-                    height: 20,
-                  ),
-                ),
+                onPressed: () async {
+                  if(fav==Colors.yellow){
+                    if(await DeleteFavourites(widget.post.id)){
+                      setState(() {
+                        fav = Colors.grey;
+                      });
+                    };
+                  }
+                  else{
+                    if(await AddFavourites(widget.post.id)){
+                    setState(() {
+                      fav = Colors.yellow;
+                    });
+                    }
+                  }
+                },
+                icon: Icon(Icons.star,color: fav),
               ),
             ],
           ),
           body: Column(
             children: [
-              Image.asset(
-                product.image,
-                height: MediaQuery.of(context).size.height * 0.4,
-                fit: BoxFit.cover,
-              ),
+              Image.memory( Base64Decoder().convert(widget.post.image),height: 200),
               const SizedBox(height: defaultPadding * 1.5),
               Expanded(
                 child: Container(
@@ -63,21 +106,21 @@ class ViewPostAsBuyerScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              product.title,
+                              widget.post.title,
                               style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
                           const SizedBox(width: defaultPadding),
                           Text(
-                            "\$" + product.price.toString(),
+                            "\$" + widget.post.price.toString(),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: defaultPadding),
                         child: Text(
-                          "An past year examination paper that has been used by me",
+                          widget.post.description,
                         ),
                       ),
                       // Text(

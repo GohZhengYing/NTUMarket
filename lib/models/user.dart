@@ -26,6 +26,7 @@ class UserStorage {
       try {
         // Read the file
         final contents = await file.readAsString();
+        print(contents);
         return json.decode(contents);
       } catch (e) {
         // If encountering an error, return 0
@@ -47,24 +48,43 @@ class UserStorage {
 
 class User {
   final String email, token,image;
+  final List<dynamic> favourite_id;
 
 
 
   User({
     required this.email,
     required this.token,
-    required this.image
+    required this.image,
+    required this.favourite_id
   });
 
-  User.fromJson(Map<String,dynamic> json)
-      :email = json['email'],
-  token = json['token'],
-  image = json['image']
-  ;
+  // User.fromJson(Map<String,dynamic> json)
+  //     :email = json['email'],
+  // token = json['token'],
+  // image = json['image'],
+  // favourites = json['favourites'] as List<String>
+  // ;
+
+  factory User.fromJson(dynamic json) {
+    // print(json);
+    // List<String> fav = [];
+    //if(json['favourite_id'] != null &&json['favourite_id'].length > 0){
+      //json['favourite_id'].map((l) => fav.add(l.toString()));
+    //}
+    return User(
+    email: json['email'],
+    token: json['token'],
+    image: json['image'],
+        favourite_id: json['favourite_id']
+    );
+
+  }
 
   Map<String, dynamic> toJson() =>{
     'email':email,
     'token':token,
-    'image':image
+    'image':image,
+    'favourite_id':favourite_id
   };
 }

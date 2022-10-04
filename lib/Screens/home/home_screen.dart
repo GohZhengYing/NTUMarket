@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 
 
+import '../../models/post.dart';
 import '../Favourites/favourites_screen.dart';
 import '../create_post/create_post_screen.dart';
 import '../view_user_profile/view_user_profile_screen.dart';
@@ -20,7 +21,31 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  late GlobalKey<ScaffoldState> _scaffoldKey;
 
+
+  List<Post> posts = [];
+
+
+
+  @override
+  Future<void> LoadPosts() async {
+    super.initState();
+    final PostStorage postStorage = new PostStorage();
+    List<Post>_posts = await postStorage.readPost();
+    setState(() {
+      posts = _posts;
+    });
+
+
+  }
+  // This widget is the root of your application.
+
+  void initState(){
+    _scaffoldKey = GlobalKey();
+    super.initState();
+    LoadPosts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    // IconButton(
-                    //   disabledColor: Colors.white,
-                    //   tooltip: 'Navigate to home page',
-                    //   icon: const Icon(Icons.home_rounded),
-                    //   onPressed: null,
-                    // ),
                     IconButton(
                       tooltip: 'Add post',
                       icon: const Icon(Icons.post_add),
@@ -92,26 +111,48 @@ class _HomeScreenState extends State<HomeScreen> {
               )
 
           ),
-          body:  LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints viewportConstraints) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: viewportConstraints.maxHeight,
-                  ),
-                  child: IntrinsicHeight(
-                    child:Center(
-                          child: Column(
-                            children: <Widget>[
-                              HomeSearchBar(),
-                              HomeCategories(),
-                              HomeRecentlyUsed()
-                            ],
-                          ),
+          body:  RefreshIndicator(
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints viewportConstraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height,
+                    ),
+                    child: IntrinsicHeight(
+                      child:Center(
+                        child: Column(
+                          children: <Widget>[
+                            HomeSearchBar(),
+                            HomeCategories(),
+                            HomeRecentlyUsed(posts:posts)
+                          ],
                         ),
+                      ),
+                    ),
                   ),
-                ),
-              );
+                );
+              },
+            ),
+            onRefresh: (){
+    return Future.delayed(
+    Duration(seconds: 1),
+    () async {
+    /// adding elements in list after [1 seconds] delay
+    /// to mimic network call
+    ///
+    /// Remember: [setState] is necessary so that
+    /// build method will run again otherwise
+    /// list will not show all elements
+      final PostStorage postStorage = new PostStorage();
+      List<Post>_posts = await postStorage.readPost();
+      setState(() {
+        posts = _posts;
+      });
+
+    // showing snackbar
+
+    });
             },
           ),
         ),

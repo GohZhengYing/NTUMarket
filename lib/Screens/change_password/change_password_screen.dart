@@ -67,7 +67,7 @@ class MobileChangePasswordScreen extends StatelessWidget {
           height: 30,
         ),
         Row(
-          children: const [
+          children: [
             Spacer(),
             Expanded(
               flex: 8,

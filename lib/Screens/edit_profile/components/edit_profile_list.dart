@@ -33,6 +33,14 @@ class EditProfileList extends StatelessWidget {
           child: const Text('Change Password',style: TextStyle(color: Colors.black)),
           style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))
           ,),
+        OutlinedButton(onPressed: () {
+          // Navigator.of(context).push(
+          //     MaterialPageRoute(builder: (context) => ChangePasswordScreen())
+          // );
+        },
+          child: const Text('Delete Account',style: TextStyle(color: Colors.black)),
+          style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))
+          ,),
       ],
     );
   }

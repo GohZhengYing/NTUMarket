@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
     if(loading){
       return Container();
     }
-  print("Logged in:"+(loggedIn).toString());
+  //print("Logged in:"+(loggedIn).toString());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ntu Market',

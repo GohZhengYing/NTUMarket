@@ -1,16 +1,41 @@
 import 'package:flutter/material.dart';
 
+import '../../models/model_provider.dart';
+import '../../models/post.dart';
 import 'components/search_results_results_list.dart';
 import 'components/search_results_searchbar.dart';
 
 class SearchResultsScreen extends StatefulWidget {
-  const SearchResultsScreen({Key? key}) : super(key: key);
+  String name;
+  String code;
+
+  SearchResultsScreen({Key? key,required this.name,required this.code}) : super(key: key);
 
   @override
   _SearchResultsScreenState createState() => _SearchResultsScreenState();
 }
 
 class _SearchResultsScreenState extends State<SearchResultsScreen> {
+  bool searchSubmitted = false;
+  TextEditingController searchInput = new TextEditingController();
+  List<Post> result = [];
+
+  Future<void> SearchPosts() async {
+    super.initState();
+    List<Post> _result = await SearchPost(searchInput.text!=''?searchInput.text:widget.name,'','') ;
+    setState(() {
+      result = _result;
+    });
+  }
+
+  // This widget is the root of your application.
+
+  void initState(){
+    super.initState();
+    SearchPosts();
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -44,8 +69,8 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     child:Center(
                       child: Column(
                         children: [
-                          SearchResultsSearchbar(),
-                          SearchResultsResultsList()
+                          SearchResultsSearchbar(searchInput: searchInput,result: result,),
+                          SearchResultsResultsList(result: result,)
                         ],
                       ),
                     ),

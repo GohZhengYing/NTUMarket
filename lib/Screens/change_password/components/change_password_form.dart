@@ -1,3 +1,4 @@
+import 'package:NtuMarket/models/model_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -6,9 +7,12 @@ import '../../Signup/signup_screen.dart';
 import '../../home/home_screen.dart';
 
 class ChangePasswordForm extends StatelessWidget {
-  const ChangePasswordForm({
+  ChangePasswordForm({
     Key? key,
   }) : super(key: key);
+
+  final password_input = TextEditingController();
+  final confirm_password_input = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +20,7 @@ class ChangePasswordForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            controller: password_input,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
@@ -30,6 +35,7 @@ class ChangePasswordForm extends StatelessWidget {
           ),
           const SizedBox(height: defaultPadding),
           TextFormField(
+            controller: confirm_password_input,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
@@ -48,10 +54,15 @@ class ChangePasswordForm extends StatelessWidget {
           Hero(
             tag: "changepassword_btn",
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                if(await ChangePassword(password_input.text)){
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => HomeScreen())
                 );
+                }
+                else{
+                  print("change password failed");
+                }
               },
               child: Text(
                 "Change Password".toUpperCase(),

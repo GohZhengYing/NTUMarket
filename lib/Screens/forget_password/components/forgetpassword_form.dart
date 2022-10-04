@@ -1,15 +1,18 @@
+import 'package:NtuMarket/Screens/login/login_screen.dart';
+import 'package:NtuMarket/models/model_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
-import '../../Login/login_screen.dart';
 import '../../Signup/signup_screen.dart';
 import '../../change_password/change_password_screen.dart';
 
 class ForgetPasswordForm extends StatelessWidget {
-  const ForgetPasswordForm({
+  ForgetPasswordForm({
     Key? key,
   }) : super(key: key);
+
+  final email_input = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +20,7 @@ class ForgetPasswordForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            controller: email_input,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
@@ -33,15 +37,16 @@ class ForgetPasswordForm extends StatelessWidget {
           Hero(
             tag: "forgetpassword_btn",
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                if(await ForgetPassword(email_input.text)){
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ChangePasswordScreen(); // change to proper forget password button
+                      return LoginScreen(); // If successful, users will be sent a new password in their email, so they will be prompted to sign in again with the new password
                     },
                   ),
-                );
+                );}
               },
               child: Text(
                 "Forget Password".toUpperCase(),
@@ -51,6 +56,7 @@ class ForgetPasswordForm extends StatelessWidget {
           const SizedBox(height: defaultPadding),
           GestureDetector(
             onTap: () {
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

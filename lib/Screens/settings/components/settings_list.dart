@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+import '../../../models/post.dart';
 import '../../../models/user.dart';
 import '../../Login/login_screen.dart';
 import '../../edit_profile/edit_profile_screen.dart';
@@ -28,7 +29,7 @@ class SettingsList extends StatelessWidget {
             )
         ),
         OutlinedButton(onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const EditProfileScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> EditProfileScreen(post: Post(title: '', price: '', image: '', category: '', description: '', id: '',))));
         },
           child: const Text('Edit Profile',style: TextStyle(color: Colors.black)),
           style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))
@@ -39,7 +40,7 @@ class SettingsList extends StatelessWidget {
           ,),
         OutlinedButton(onPressed: () {
           final UserStorage userStorage = new UserStorage();
-          userStorage.writeUser(User(email: '',token: '',image: ''));
+          userStorage.writeUser(User(email: '',token: '',image: '',favourite_id: []));
           print("logged out");
           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const LoginScreen()));
         },

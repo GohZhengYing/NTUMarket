@@ -1,7 +1,9 @@
+import 'package:NtuMarket/models/model_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+import '../../models/post.dart';
 import 'components/favourites_list.dart';
 
 
@@ -14,6 +16,33 @@ class FavouritesScreen extends StatefulWidget {
 }
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
+
+  late GlobalKey<ScaffoldState> _scaffoldKey;
+
+  bool refresh = false;
+  List<Post> posts = [];
+
+  void ref(){
+    LoadPosts();
+}
+
+  @override
+  Future<void> LoadPosts() async {
+    super.initState();
+    List<Post>_posts = await FetchFavourites();
+    setState(() {
+      posts = _posts;
+    });
+
+
+  }
+  // This widget is the root of your application.
+
+  void initState(){
+    _scaffoldKey = GlobalKey();
+    super.initState();
+    LoadPosts();
+  }
 
 
   @override
@@ -47,7 +76,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     child:Center(
                       child: Column(
                         children: <Widget>[
-                          FavouritesList()
+                          FavouritesList(posts: posts, ref: ref,),
+                          refresh? Container():Container()
                         ],
                       ),
                     ),

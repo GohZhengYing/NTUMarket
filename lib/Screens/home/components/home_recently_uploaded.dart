@@ -1,21 +1,52 @@
 
+import 'dart:convert';
+
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/post.dart';
 import '../../view_post_as_owner/component/ProductOwner.dart';
 import '../../view_post_as_owner/view_post_as_owner_screen.dart';
 
 
 
 class HomeRecentlyUsed extends StatefulWidget {
-  const HomeRecentlyUsed({super.key});
+
+  List<Post> posts = [];
+
+  HomeRecentlyUsed({super.key,required this.posts});
 
   @override
   State<HomeRecentlyUsed> createState() => _HomeRecentlyUsedState();
 }
 
 class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
+
+  // List<Post> posts = [];
+  //
+  //
+  //
+  // @override
+  // Future<void> LoadPosts() async {
+  //   super.initState();
+  //   final PostStorage postStorage = new PostStorage();
+  //   List<Post>_posts = await postStorage.readPost();
+  //   setState(() {
+  //     posts = _posts;
+  //   });
+  //
+  //
+  // }
+  // // This widget is the root of your application.
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   LoadPosts();
+  //
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +69,13 @@ class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
           spacing: MediaQuery.of(context).size.width *0.0667, // gap between adjacent chips
           runSpacing: 20.0, // gap between lines
           children: <Widget>[
+            for (var post in widget.posts)
             SizedBox(
               width: MediaQuery.of(context).size.width *0.4,
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewPostAsOwnerScreen(product: demo_product_owner[0]))
+                      MaterialPageRoute(builder: (context) => ViewPostAsOwnerScreen(post: post,))
                   );
                 },
                 child: Column(
@@ -58,82 +90,19 @@ class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
                                 color: Color(0xFF0B20DE)
                             )
                         ),
-                        child: Image.asset('assets/images/NTUMarketLogo.png'),
+                        child: Image.memory( Base64Decoder().convert(post.image)),
                       ),
                     ),
-                    Text('EE4758'),
-                    Text('Paper \$40'),
+                    Text(post.title),
+                    Text('${post.category} \$${post.price}'),
                     Text(' '),
-                    Text('User1')
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width *0.4,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewPostAsOwnerScreen(product: demo_product_owner[0]))
-                  );
-                },
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width *0.3,
-                      height: MediaQuery.of(context).size.width *0.4,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 5,
-                                color: Color(0xFF0B20DE)
-                            )
-                        ),
-                        child: Image.asset('assets/images/NTUMarketLogo.png'),
-                      ),
-                    ),
-                    Text('EE4758'),
-                    Text('Paper \$40'),
-                    Text(' '),
-                    Text('User1')
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width *0.4,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewPostAsOwnerScreen(product: demo_product_owner[0]))
-                  );
-                },
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width *0.3,
-                      height: MediaQuery.of(context).size.width *0.4,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 5,
-                                color: Color(0xFF0B20DE)
-                            )
-                        ),
-                        child: Image.asset('assets/images/NTUMarketLogo.png'),
-                      ),
-                    ),
-                    Text('EE4758'),
-                    Text('Paper \$40'),
-                    Text(' '),
-                    Text('User1')
                   ],
                 ),
               ),
             ),
           ],
         ),
-        ElevatedButton(
+        widget.posts.length != 0?ElevatedButton(
           onPressed: null,
           child: Text('Show More'),
           style: ElevatedButton.styleFrom(
@@ -143,7 +112,7 @@ class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
               backgroundColor: Color(0xFF61E4D5),
               disabledBackgroundColor: Color(0xFF61E4D5)
           ),
-        ),
+        ):Container(),
       ],
     );
   }

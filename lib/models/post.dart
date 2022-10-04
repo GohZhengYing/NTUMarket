@@ -27,10 +27,12 @@ class PostStorage {
       try {
         // Read the file
         final contents = await file.readAsString();
+        print(contents);
         Iterable l = await json.decode(contents);
         List<Post> posts = [];
         for(int i =0;i<l.length;i++){
-        posts.add(Post.fromJson( l.elementAt(i)));}
+          //Post(description: description,category: category,image: image,price: price,title: title,id: id)
+        posts.add(await Post.fromJson( l.elementAt(i)));}
         print(posts);
         return posts;
       } catch (e) {
@@ -57,7 +59,7 @@ class PostStorage {
 
 
 class Post {
-  final String title, price, description, image, category;
+  final String title, price, description, image, category,id;
 
 
 
@@ -67,6 +69,7 @@ class Post {
     required this.image,
     required this.category,
     required this.description,
+    required this.id,
   });
 
   Post.fromJson(Map<String,dynamic> json)
@@ -74,7 +77,8 @@ class Post {
         category = json['category'],
         image = json['image'],
         price = json['price'],
-        title = json['title']
+        title = json['title'],
+        id = json['_id'] != null ? json['_id']: json['id']
   ;
 
   Map<String, dynamic> toJson() =>{
@@ -82,6 +86,7 @@ class Post {
     'price':price,
     'image':image,
     'category':category,
-    'description':description
+    'description':description,
+    'id':id
   };
 }

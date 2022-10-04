@@ -1,17 +1,22 @@
 
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants.dart';
+import '../../models/model_provider.dart';
+import '../../models/post.dart';
 import '../edit_post/edit_post_screen.dart';
 import 'component/ProductOwner.dart';
 
 import 'component/colordot.dart';
 
 class ViewPostAsOwnerScreen extends StatelessWidget {
-  const ViewPostAsOwnerScreen({Key? key, required this.product})
+  const ViewPostAsOwnerScreen({Key? key, required this.post})
       : super(key: key);
 
-  final ProductOwner product;
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           extendBodyBehindAppBar: false,
-          backgroundColor: product.bgColor,
+          backgroundColor: const Color(0xFFFEFBF9),
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -40,11 +45,7 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Image.asset(
-                product.image,
-                height: MediaQuery.of(context).size.height * 0.4,
-                fit: BoxFit.cover,
-              ),
+              Image.memory( Base64Decoder().convert(post.image),height: 200),
               const SizedBox(height: defaultPadding * 1.5),
               Expanded(
                 child: Container(
@@ -64,21 +65,21 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              product.title,
+                              post.title,
                               style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
                           const SizedBox(width: defaultPadding),
                           Text(
-                            "\$" + product.price.toString(),
+                            "\$" + post.price.toString(),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: defaultPadding),
                         child: Text(
-                          "An past year examination paper that has been used by me",
+                          post.description,
                         ),
                       ),
                       // Text(
@@ -105,21 +106,69 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                       // ),
                       const SizedBox(height: defaultPadding * 2),
                       Center(
-                        child: SizedBox(
-                          width: 200,
-                          height: 48,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => EditPostScreen())
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: kPrimaryColor,
-                                shape: const StadiumBorder()),
-                            child: const Text("Edit"),
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: 150,
+                              height: 60,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => EditPostScreen(post:post))
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: kPrimaryColor,
+                                    shape: const StadiumBorder()),
+                                child: const Text("Edit"),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 150,
+                              height: 60,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context
+                                      , builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Warning'),           // To display the title it is optional
+                                          content: Text('Are you sure?'),   // Message which will be pop up on the screen
+                                          // Action widget which will provide the user to acknowledge the choice
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () async {
+                                                if(await DeletePost(post.id)){
+                                                print('deleted post');
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                }
+                                                else
+                                                print('delete failed');
+                                              },
+                                              child: Text('Yes'),
+                                            ),
+                                            TextButton(                     // FlatButton widget is used to make a text to work like a button
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },             // function used to perform after pressing the button
+                                              child: Text('No'),
+                                            ),
+                                          ],
+                                        );
+                                  });
+
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: kPrimaryColor,
+                                    shape: const StadiumBorder()),
+                                child: const Text("Delete"),
+                              ),
+                            ),
+                          ],
                         ),
+
                       )
                     ],
                   ),
