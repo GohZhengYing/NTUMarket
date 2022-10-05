@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../search_results/search_results_screen.dart';
 
+
+const List<String> list = <String>['Exam Papers', 'Stationaries', 'Lecture Notes', 'Hardware'];
 
 class AdvancedSearchSearchbars extends StatelessWidget {
   AdvancedSearchSearchbars({Key? key}) : super(key: key);
@@ -31,6 +34,7 @@ class AdvancedSearchSearchbars extends StatelessWidget {
             Padding(
               padding: EdgeInsets.fromLTRB(20,10, 20, 0),
               child:       TextFormField(
+                inputFormatters: [LengthLimitingTextInputFormatter(15)],
                 controller: name,
                 decoration: InputDecoration(
                   hintText: 'Name of Material',
@@ -53,7 +57,7 @@ class AdvancedSearchSearchbars extends StatelessWidget {
                 padding:EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width *0.867,
-                    child:Text('Course Code',
+                    child:Text('Category',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
@@ -63,24 +67,7 @@ class AdvancedSearchSearchbars extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(20,10, 20, 0),
-              child:       TextFormField(
-                controller: code,
-                decoration: InputDecoration(
-                  hintText: 'Course Code',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      )
-                  ),
-                  focusColor: Colors.white,
-                  fillColor: Color(0x6561E4D5),
-                  filled: true,
-
-                ),
-
-              ),
+              child:DropdownButtonExample(),
             ),
           ],
         ),
@@ -100,3 +87,41 @@ class AdvancedSearchSearchbars extends StatelessWidget {
       ;
   }
 }
+class DropdownButtonExample extends StatefulWidget {
+
+  const DropdownButtonExample({super.key});
+
+  @override
+  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
+}
+
+class _DropdownButtonExampleState extends State<DropdownButtonExample> {
+  String dropdownValue = list.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      isExpanded:true,
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.black87),
+      underline: Container(
+        height: 2,
+        color: Colors.tealAccent,
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+  }
