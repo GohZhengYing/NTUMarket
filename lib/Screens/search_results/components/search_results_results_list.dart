@@ -48,9 +48,10 @@ class _SearchResultsResultsListState extends State<SearchResultsResultsList> {
                     height: MediaQuery.of(context).size.width *0.4,
                     child: Container(
                       decoration: BoxDecoration(
+                        color: Color(0xFF61E4D5),
                           border: Border.all(
-                              width: 5,
-                              color: Color(0xFF0B20DE)
+                              width: 1,
+                              color: Color(0xFF61E4D5)
                           )
                       ),
                       child: Image.memory( Base64Decoder().convert(post.image)),

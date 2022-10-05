@@ -62,8 +62,9 @@ Future<bool> Login(String email,String password) async {
     userStorage.writeUser(User.fromJson(json.decode(response.body)));
 
     List<Post> posts = [];
-    print(json.decode(response.body)['posts'][0]['_id']);
+    //print(json.decode(response.body)['posts'][0]['_id']);
     Iterable l = json.decode(response.body)['posts'];
+    print("here");
     for(int i =0;i<l.length;i++){
       posts.add(Post.fromJson( l.elementAt(i)));}
 
@@ -91,7 +92,7 @@ Future<bool> Signup(String email,String password) async {
   if(json.decode(response.body)['status']){
     userStorage.writeUser(User.fromJson(json.decode(response.body)));
     User user = User.fromJson(await userStorage.readUser());
-    print(await 'Storage Email:${user.email}, Token:${user.token}, image:${user.image}');
+    //print(await 'Storage Email:${user.email}, Token:${user.token}, image:${user.image}');
 
     List<Post> posts = [];
     Iterable l = json.decode(response.body)['posts'];

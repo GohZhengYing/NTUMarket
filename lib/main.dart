@@ -12,7 +12,7 @@ import 'constants.dart';
 
 
 void main() {
-
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());}
 //void main() => runApp(const LoginScreen());
 
@@ -84,5 +84,13 @@ class _MyAppState extends State<MyApp> {
           )),
       home: loggedIn? const HomeScreen() : WelcomeScreen(),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/post.dart';
 import '../Favourites/favourites_screen.dart';
+import '../advanced_search/advanced_search_screen.dart';
 import '../create_post/create_post_screen.dart';
 import '../view_user_profile/view_user_profile_screen.dart';
 import 'components/home_categories.dart';
@@ -85,6 +86,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     IconButton(
+                      tooltip: 'search',
+                      icon: const Icon(Icons.search),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AdvancedSearchScreen(),
+                            )
+                        );
+                      },
+                    ),
+                    IconButton(
                       tooltip: 'favourites',
                       icon: const Icon(Icons.star),
                       onPressed: () {
@@ -123,8 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child:Center(
                         child: Column(
                           children: <Widget>[
-                            HomeSearchBar(),
-                            HomeCategories(),
+                            //HomeSearchBar(),
+                            //HomeCategories(),
                             HomeRecentlyUsed(posts:posts)
                           ],
                         ),
