@@ -8,7 +8,6 @@ import '../../Signup/signup_screen.dart';
 import '../../forget_password/forget_password_screen.dart';
 import '../../home/home_screen.dart';
 
-
 class LoginForm extends StatelessWidget {
   LoginForm({
     Key? key,
@@ -16,6 +15,13 @@ class LoginForm extends StatelessWidget {
 
   final email_input = TextEditingController();
   final password_input = TextEditingController();
+
+  bool validatePassword(String value) {
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +63,14 @@ class LoginForm extends StatelessWidget {
             tag: "login_btn",
             child: ElevatedButton(
               onPressed: () async {
-                if(await Login(email_input.text,password_input.text)){
-                  print('logged in');
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => HomeScreen()
-                    )
-                  );
+                if (validatePassword(password_input.text)) {
+                  if (await Login(email_input.text, password_input.text)) {
+                    print('logged in');
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  } else
+                    print('login failed');
                 }
-                else
-                  print('login failed');
-
               },
               child: Text(
                 "Login".toUpperCase(),

@@ -14,6 +14,13 @@ class ChangePasswordForm extends StatelessWidget {
   final password_input = TextEditingController();
   final confirm_password_input = TextEditingController();
 
+  bool validatePassword(String value) {
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -55,13 +62,13 @@ class ChangePasswordForm extends StatelessWidget {
             tag: "changepassword_btn",
             child: ElevatedButton(
               onPressed: () async {
-                if(await ChangePassword(password_input.text)){
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => HomeScreen())
-                );
-                }
-                else{
-                  print("change password failed");
+                if (validatePassword(password_input.text)) {
+                  if (await ChangePassword(password_input.text)) {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  } else {
+                    print("change password failed");
+                  }
                 }
               },
               child: Text(
