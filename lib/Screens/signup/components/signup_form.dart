@@ -14,25 +14,32 @@ class SignUpForm extends StatelessWidget {
   final email_input = TextEditingController();
   final password_input = TextEditingController();
 
+  bool validatePassword(String value) {
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       child: Column(
         children: [
           TextFormField(
-            controller: email_input,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
-            onSaved: (email) {},
-            decoration: InputDecoration(
-              hintText: "Your email",
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+              controller: email_input,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
+              cursorColor: kPrimaryColor,
+              onSaved: (email) {},
+              decoration: InputDecoration(
+                hintText: "Your email",
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: Icon(Icons.person),
+                ),
               ),
-            ),
-          ),
+              autofillHints: [AutofillHints.email]),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
@@ -52,16 +59,14 @@ class SignUpForm extends StatelessWidget {
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
             onPressed: () async {
-              if(await Signup(email_input.text,password_input.text)){
-                print('signed up');
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => HomeScreen()
-                    )
-                );
+              if (validatePassword(password_input.text)) {
+                if (await Signup(email_input.text, password_input.text)) {
+                  print('signed up');
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                } else
+                  print('signup failed');
               }
-              else
-                print('signup failed');
-
             },
             child: Text("Sign Up".toUpperCase()),
           ),
