@@ -45,16 +45,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 color: Colors.black,
                 iconSize: 40),
             actions: [
-              IconButton(
-                onPressed: () {},
-                icon: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Image.asset(
-                    "assets/images/Dora.jpg",
-                    height: 20,
-                  ),
-                ),
-              ),
+              // IconButton(
+              //   onPressed: () {},
+              //   icon: CircleAvatar(
+              //     backgroundColor: Colors.white,
+              //     child: Image.asset(
+              //       "assets/images/Dora.jpg",
+              //       height: 20,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           body: LayoutBuilder(
