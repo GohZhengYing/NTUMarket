@@ -63,7 +63,7 @@ class SignUpForm extends StatelessWidget {
                 if (await Signup(email_input.text, password_input.text)) {
                   print('signed up');
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 } else
                   print('signup failed');
               }

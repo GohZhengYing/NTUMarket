@@ -108,6 +108,31 @@ Future<bool> Signup(String email,String password) async {
 
 }
 
+Future<bool> DeleteAccount() async {
+
+  final UserStorage userStorage = new UserStorage();
+  User user = User.fromJson(await userStorage.readUser());
+  final PostStorage postStorage = new PostStorage();
+
+  var response = await http.delete(Uri.http(url, "account"), body: {
+    "email": user.email,
+    "token": user.token,
+  });
+
+  if(json.decode(response.body)['status']){
+    userStorage.writeUser(User(email: '',token: '',image: '',favourite_id: []));
+    postStorage.writePost([]);
+
+
+    print("deleted");
+
+    return true;
+  }
+  else
+    return false;
+
+}
+
 Future<bool> ForgetPassword(String email) async {
 
   print(email);
@@ -238,13 +263,14 @@ Future<bool> DeletePost(String id) async {
 
 }
 
-Future<List<Post>> SearchPost(String title,String description,String category) async {
-  print(title+' '+category+' '+description);
+Future<List<Post>> SearchPost(String title,String category) async {
+
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());
-
-
-  var response = await http.get(Uri.http(url, "post/${title!=''?title:' '}/${description!=''?description:' '}/${category!=''?category:' '}"));
+  title = title!=''?title:'EmPtYtItLe';
+  category = category!=''?category:'All';
+  print('.'+title+'and'+category);
+  var response = await http.get(Uri.http(url, "post/${title}/${category}"));
 
   List<Post> posts = [];
   if(json.decode(response.body)['status']){

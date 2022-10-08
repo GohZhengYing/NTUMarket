@@ -7,9 +7,9 @@ import 'components/search_results_searchbar.dart';
 
 class SearchResultsScreen extends StatefulWidget {
   String name;
-  String code;
+  String cat;
 
-  SearchResultsScreen({Key? key,required this.name,required this.code}) : super(key: key);
+  SearchResultsScreen({Key? key,required this.name,required this.cat}) : super(key: key);
 
   @override
   _SearchResultsScreenState createState() => _SearchResultsScreenState();
@@ -22,7 +22,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
   Future<void> SearchPosts() async {
     super.initState();
-    List<Post> _result = await SearchPost(searchInput.text!=''?searchInput.text:widget.name,'','') ;
+    List<Post> _result = await SearchPost(widget.name,widget.cat) ;
     setState(() {
       result = _result;
     });
@@ -69,7 +69,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     child:Center(
                       child: Column(
                         children: [
-                          SearchResultsSearchbar(searchInput: searchInput,result: result,),
+                          //SearchResultsSearchbar(searchInput: searchInput,result: result,),
                           SearchResultsResultsList(result: result,)
                         ],
                       ),

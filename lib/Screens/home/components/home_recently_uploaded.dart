@@ -14,8 +14,9 @@ import '../../view_post_as_owner/view_post_as_owner_screen.dart';
 class HomeRecentlyUsed extends StatefulWidget {
 
   List<Post> posts = [];
+  Function LoadPosts;
 
-  HomeRecentlyUsed({super.key,required this.posts});
+  HomeRecentlyUsed({super.key,required this.posts,required this.LoadPosts});
 
   @override
   State<HomeRecentlyUsed> createState() => _HomeRecentlyUsedState();
@@ -73,10 +74,15 @@ class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
             SizedBox(
               width: MediaQuery.of(context).size.width *0.4,
               child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
+                onTap: () async {
+
+                  String refresh = await                                         Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => ViewPostAsOwnerScreen(post: post,))
                   );
+                  print(refresh);
+                  if(refresh == 'refresh'){
+                    widget.LoadPosts();
+                  }
                 },
                 child: Column(
                   children: [
@@ -103,17 +109,17 @@ class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
             ),
           ],
         ),
-        widget.posts.length != 0?ElevatedButton(
-          onPressed: null,
-          child: Text('Show More'),
-          style: ElevatedButton.styleFrom(
-              textStyle: const TextStyle(fontSize: 20),
-              minimumSize: Size(MediaQuery.of(context).size.width *0.867,40),
-              maximumSize: Size(MediaQuery.of(context).size.width *0.867,40),
-              backgroundColor: Color(0xFF61E4D5),
-              disabledBackgroundColor: Color(0xFF61E4D5)
-          ),
-        ):Container(),
+        // widget.posts.length != 0?ElevatedButton(
+        //   onPressed: null,
+        //   child: Text('Show More'),
+        //   style: ElevatedButton.styleFrom(
+        //       textStyle: const TextStyle(fontSize: 20),
+        //       minimumSize: Size(MediaQuery.of(context).size.width *0.867,40),
+        //       maximumSize: Size(MediaQuery.of(context).size.width *0.867,40),
+        //       backgroundColor: Color(0xFF61E4D5),
+        //       disabledBackgroundColor: Color(0xFF61E4D5)
+        //   ),
+        // ):Container(),
       ],
     );
   }

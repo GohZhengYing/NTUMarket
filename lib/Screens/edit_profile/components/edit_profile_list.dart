@@ -2,7 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/model_provider.dart';
+import '../../Welcome/welcome_screen.dart';
 import '../../change_password/change_password_screen.dart';
+import '../../home/home_screen.dart';
 
 class EditProfileList extends StatelessWidget {
   const EditProfileList({Key? key}) : super(key: key);
@@ -33,10 +36,37 @@ class EditProfileList extends StatelessWidget {
           child: const Text('Change Password',style: TextStyle(color: Colors.black)),
           style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))
           ,),
-        OutlinedButton(onPressed: () {
-          // Navigator.of(context).push(
-          //     MaterialPageRoute(builder: (context) => ChangePasswordScreen())
-          // );
+        OutlinedButton(onPressed: () async {
+
+          showDialog(
+              context: context
+              , builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Warning'),           // To display the title it is optional
+              content: Text('Are you sure?'),   // Message which will be pop up on the screen
+              // Action widget which will provide the user to acknowledge the choice
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    if(await DeleteAccount()){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => WelcomeScreen())
+                      );}
+                    else
+                      print('delete failed');
+                  },
+                  child: Text('Yes'),
+                ),
+                TextButton(                     // FlatButton widget is used to make a text to work like a button
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },             // function used to perform after pressing the button
+                  child: Text('No'),
+                ),
+              ],
+            );
+          });
+
         },
           child: const Text('Delete Account',style: TextStyle(color: Colors.black)),
           style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))

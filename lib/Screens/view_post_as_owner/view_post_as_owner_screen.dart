@@ -142,7 +142,7 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                                                 if(await DeletePost(post.id)){
                                                 print('deleted post');
                                                 Navigator.pop(context);
-                                                Navigator.pop(context);
+                                                Navigator.pop(context,'refresh');
                                                 }
                                                 else
                                                 print('delete failed');
@@ -151,7 +151,7 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                                             ),
                                             TextButton(                     // FlatButton widget is used to make a text to work like a button
                                               onPressed: () {
-                                                Navigator.pop(context);
+                                                Navigator.pop(context,'refresh');
                                               },             // function used to perform after pressing the button
                                               child: Text('No'),
                                             ),

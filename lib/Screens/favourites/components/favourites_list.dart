@@ -22,7 +22,7 @@ class _FavouritesListState extends State<FavouritesList> {
       fontWeight: FontWeight.bold,
       fontFamily: 'Roboto',
       fontSize: 17,
-      color: Color(0xFF0B20DE),
+      color: Color(0xFF61E4D5),
     );
 
     return Column(
@@ -67,7 +67,7 @@ class _FavouritesListState extends State<FavouritesList> {
                           decoration: BoxDecoration(
                               border: Border.all(
                                   width: 5,
-                                  color: Color(0xFF0B20DE)
+                                  color: Color(0xFF61E4D5)
                               )
                           ),
                           child: Image.memory( Base64Decoder().convert(post.image)),

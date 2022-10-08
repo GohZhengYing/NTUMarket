@@ -77,12 +77,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                       tooltip: 'Add post',
                       icon: const Icon(Icons.post_add),
-                      onPressed: () {
-                        Navigator.of(context).push(
+                      onPressed: () async {
+
+                        String refresh = await                       Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => CreatePostScreen(),
                             )
                         );
+                        print(refresh);
+                        if(refresh == 'refresh'){
+                          LoadPosts();
+                        }
+
+                        // Navigator.of(context).push(
+                        //     MaterialPageRoute(
+                        //       builder: (context) => CreatePostScreen(),
+                        //     )
+                        // );
                       },
                     ),
                     IconButton(
@@ -137,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: <Widget>[
                             //HomeSearchBar(),
                             //HomeCategories(),
-                            HomeRecentlyUsed(posts:posts)
+                            HomeRecentlyUsed(posts:posts,LoadPosts: LoadPosts,)
                           ],
                         ),
                       ),

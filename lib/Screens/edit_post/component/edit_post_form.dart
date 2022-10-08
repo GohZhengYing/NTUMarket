@@ -209,7 +209,7 @@ class _EditPostForm extends State<EditPostForm> {
 
                 print('edited post');
                 Navigator.pop(context);
-                Navigator.pop(context);
+                Navigator.pop(context,'refresh');
                 }
                 else
                 print('edit failed');

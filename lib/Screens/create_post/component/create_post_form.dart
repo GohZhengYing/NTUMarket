@@ -145,7 +145,7 @@ class _CreatePostForm extends State<CreatePostForm> {
                 if(await CreatePost(widget.title_input.text ,widget.description_input.text,widget.price_input.text,widget.image_input.text,widget.category_input.text)){
 
                   print('created post');
-                  Navigator.pop(context);
+                  Navigator.pop(context,'refresh');
                 }
                 else
                   print('post failed');

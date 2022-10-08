@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 import '../../search_results/search_results_screen.dart';
 
 
-const List<String> list = <String>['Exam Papers', 'Stationaries', 'Lecture Notes', 'Hardware'];
+const List<String> list = <String>['All','Exam Papers', 'Stationaries', 'Lecture Notes', 'Hardware',];
 
 class AdvancedSearchSearchbars extends StatelessWidget {
   AdvancedSearchSearchbars({Key? key}) : super(key: key);
 
   TextEditingController name = new TextEditingController();
-  TextEditingController code = new TextEditingController();
+  TextEditingController category = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -67,7 +67,7 @@ class AdvancedSearchSearchbars extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(20,10, 20, 0),
-              child:DropdownButtonExample(),
+              child:DropdownButtonExample(cat:category),
             ),
           ],
         ),
@@ -77,7 +77,7 @@ class AdvancedSearchSearchbars extends StatelessWidget {
             // When the user presses the button, show an alert dialog containing
             // the text that the user has entered into the text field.
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SearchResultsScreen(name: name.text,code: code.text)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SearchResultsScreen(name: name.text,cat: category.text)));
             },
             child: Text("Search"),
           ),
@@ -88,8 +88,8 @@ class AdvancedSearchSearchbars extends StatelessWidget {
   }
 }
 class DropdownButtonExample extends StatefulWidget {
-
-  const DropdownButtonExample({super.key});
+  TextEditingController cat;
+  DropdownButtonExample({super.key,required this.cat});
 
   @override
   State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
@@ -113,6 +113,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
       onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
+          widget.cat.text = value!;
           dropdownValue = value!;
         });
       },

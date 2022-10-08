@@ -4,6 +4,7 @@ import 'package:NtuMarket/Screens/home/home_screen.dart';
 import 'package:NtuMarket/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'models/user.dart';
 import 'models/model_provider.dart';
@@ -12,6 +13,9 @@ import 'constants.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());}
 //void main() => runApp(const LoginScreen());

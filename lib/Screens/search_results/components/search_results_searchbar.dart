@@ -26,7 +26,7 @@ class _SearchResultsSearchbarState extends State<SearchResultsSearchbar> {
         decoration: InputDecoration(
           hintText: 'Search',
           suffixIcon: IconButton(onPressed: () async {
-            List<Post> _result = await SearchPost(widget.searchInput.text,'','') ;
+            List<Post> _result = await SearchPost(widget.searchInput.text,'') ;
             setState(() {
               widget.result = _result;
             });
