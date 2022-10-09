@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 
 
-final String url = "10.0.2.2:5000";
+final String url = "ntumarket.herokuapp.com";
 
 Future<bool> Initialize() async {
 
@@ -20,7 +20,7 @@ Future<bool> Initialize() async {
 
   if(user.token != '' && user.email != ''){
   print(true);
-  var response = await http.post(Uri.http(url, "login"), body: {
+  var response = await http.post(Uri.http(url, "/login"), body: {
     "email": user.email,
     "token": user.token,
   });
