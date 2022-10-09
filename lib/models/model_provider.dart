@@ -351,3 +351,17 @@ Future<bool> DeleteFavourites(String id) async {
 
 
 }
+
+Future<String> FetchEmail(String id) async {
+
+  var response = await http.get(Uri.http(url, "post/"+id));
+
+
+  if(json.decode(response.body)['status']){
+
+    return json.decode(response.body)['email'];}
+  else
+    return '';
+
+
+}
