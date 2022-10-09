@@ -51,7 +51,7 @@ class _ViewUserProfileScreenState extends State<ViewUserProfileScreen> {
             title: Column(
               children: [
                 user.image!=''?Image.memory( Base64Decoder().convert(user.image),height: 30,): Icon(Icons.account_circle),
-                Text(user.email!=''?user.email:'',
+                Text(user.email.length>13?user.email.substring(0,user.email.length-13):user.email,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

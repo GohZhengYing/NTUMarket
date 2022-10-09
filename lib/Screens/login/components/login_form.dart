@@ -63,14 +63,14 @@ class LoginForm extends StatelessWidget {
             tag: "login_btn",
             child: ElevatedButton(
               onPressed: () async {
-                if (validatePassword(password_input.text)) {
+                //if (validatePassword(password_input.text)) {
                   if (await Login(email_input.text, password_input.text)) {
                     print('logged in');
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   } else
                     print('login failed');
-                }
+                //}
               },
               child: Text(
                 "Login".toUpperCase(),
