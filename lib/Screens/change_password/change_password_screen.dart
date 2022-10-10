@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../components/background.dart';
@@ -14,17 +13,15 @@ class ChangePasswordScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: SafeArea(
-          child: Background(
-                child: SingleChildScrollView(
-                  child: Responsive(
-                    mobile: const MobileChangePasswordScreen(),
-                    desktop: const MobileChangePasswordScreen(),
-                  ),
-                ),
-              ),
-
+        child: Background(
+          child: SingleChildScrollView(
+            child: Responsive(
+              mobile: const MobileChangePasswordScreen(),
+              desktop: const MobileChangePasswordScreen(),
+            ),
+          ),
         ),
-
+      ),
     );
   }
 }
@@ -41,7 +38,12 @@ class MobileChangePasswordScreen extends StatelessWidget {
       children: <Widget>[
         Row(
           children: [
-            IconButton(onPressed:() {Navigator.pop(context);}, icon: Icon(Icons.cancel),color: Colors.black),
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.cancel),
+                color: Colors.black),
           ],
         ),
         const LoginScreenTopImage(),
@@ -56,15 +58,6 @@ class MobileChangePasswordScreen extends StatelessWidget {
             )),
         const SizedBox(
           height: 10,
-        ),
-        Text("Choose a New Password that is at least 6 characters long.",
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
-              fontWeight: FontWeight.w400,
-            )),
-        const SizedBox(
-          height: 30,
         ),
         Row(
           children: [
