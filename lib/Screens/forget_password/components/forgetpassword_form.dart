@@ -7,23 +7,41 @@ import '../../../constants.dart';
 import '../../Signup/signup_screen.dart';
 import '../../change_password/change_password_screen.dart';
 
-class ForgetPasswordForm extends StatelessWidget {
-  ForgetPasswordForm({
-    Key? key,
-  }) : super(key: key);
+class ForgetPasswordForm extends StatefulWidget {
+  const ForgetPasswordForm({super.key});
 
+  @override
+  State<ForgetPasswordForm> createState() => _ForgetPasswordFormState();
+}
+
+class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
+  @override
   final email_input = TextEditingController();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formkey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           TextFormField(
             controller: email_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Enter valid Email";
+              } else if (!RegExp(r'^[A-Z a-z]*[0-9]+@[e.ntu.edu.sg]+$')
+                  .hasMatch(value!)) {
+                return "Enter NTU Email";
+              } else {
+                return null;
+              }
+            },
             onSaved: (email) {},
             decoration: InputDecoration(
               hintText: "Your email",
@@ -38,15 +56,16 @@ class ForgetPasswordForm extends StatelessWidget {
             tag: "forgetpassword_btn",
             child: ElevatedButton(
               onPressed: () async {
-                if(await ForgetPassword(email_input.text)){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginScreen(); // If successful, users will be sent a new password in their email, so they will be prompted to sign in again with the new password
-                    },
-                  ),
-                );}
+                if (await ForgetPassword(email_input.text)) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return LoginScreen(); // If successful, users will be sent a new password in their email, so they will be prompted to sign in again with the new password
+                      },
+                    ),
+                  );
+                }
               },
               child: Text(
                 "Forget Password".toUpperCase(),
@@ -56,15 +75,16 @@ class ForgetPasswordForm extends StatelessWidget {
           const SizedBox(height: defaultPadding),
           GestureDetector(
             onTap: () {
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return LoginScreen();
-                  },
-                ),
-              );
+              if (formkey.currentState!.validate()) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
+                    },
+                  ),
+                );
+              }
             },
             child: Text(
               "Return to sign in",
