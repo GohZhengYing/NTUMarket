@@ -18,6 +18,8 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
   final password_input = TextEditingController();
   final confirm_password_input = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  bool _isVisible = false;
+  bool _isVisible2 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            obscureText: !_isVisible,
             onSaved: (email) {},
             validator: (value) {
               if (value!.isEmpty) {
@@ -46,6 +49,16 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             },
             decoration: InputDecoration(
               hintText: "Enter New Password",
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _isVisible = !_isVisible;
+                  });
+                },
+                icon: _isVisible
+                    ? Icon(Icons.visibility)
+                    : Icon(Icons.visibility_off),
+              ),
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(defaultPadding),
                 child: Icon(Icons.person),
@@ -58,6 +71,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
+            obscureText: !_isVisible2,
             validator: (value) {
               if (value!.isEmpty) {
                 return "Password cannot be blank";
@@ -74,6 +88,16 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             cursorColor: kPrimaryColor,
             onSaved: (email) {},
             decoration: InputDecoration(
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _isVisible2 = !_isVisible2;
+                  });
+                },
+                icon: _isVisible
+                    ? Icon(Icons.visibility)
+                    : Icon(Icons.visibility_off),
+              ),
               hintText: "Confirm New Password",
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(defaultPadding),

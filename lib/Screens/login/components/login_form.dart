@@ -20,6 +20,7 @@ class _LoginFormState extends State<LoginForm> {
   final email_input = TextEditingController();
   final password_input = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class _LoginFormState extends State<LoginForm> {
               controller: password_input,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               textInputAction: TextInputAction.done,
-              obscureText: true,
+              obscureText: !_isVisible,
               cursorColor: kPrimaryColor,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -70,6 +71,16 @@ class _LoginFormState extends State<LoginForm> {
               },
               decoration: InputDecoration(
                 hintText: "Your password",
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _isVisible = !_isVisible;
+                    });
+                  },
+                  icon: _isVisible
+                      ? Icon(Icons.visibility)
+                      : Icon(Icons.visibility_off),
+                ),
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(defaultPadding),
                   child: Icon(Icons.lock),
