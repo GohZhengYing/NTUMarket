@@ -8,31 +8,42 @@ import '../../Signup/signup_screen.dart';
 import '../../forget_password/forget_password_screen.dart';
 import '../../home/home_screen.dart';
 
-class LoginForm extends StatelessWidget {
-  LoginForm({
-    Key? key,
-  }) : super(key: key);
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  @override
   final email_input = TextEditingController();
   final password_input = TextEditingController();
-
-  bool validatePassword(String value) {
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = new RegExp(pattern);
-    return regExp.hasMatch(value);
-  }
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formkey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           TextFormField(
             controller: email_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Enter valid Email";
+              } else if (!RegExp(r'^[A-Z a-z]*[0-9]+@[e.ntu.edu.sg]+$')
+                  .hasMatch(value!)) {
+                return "Enter NTU Email";
+              } else {
+                return null;
+              }
+            },
             onSaved: (email) {},
             decoration: InputDecoration(
               hintText: "Your email",
@@ -46,9 +57,17 @@ class LoginForm extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
               controller: password_input,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Password cannot be blank";
+                } else {
+                  return null;
+                }
+              },
               decoration: InputDecoration(
                 hintText: "Your password",
                 prefixIcon: Padding(
@@ -63,14 +82,16 @@ class LoginForm extends StatelessWidget {
             tag: "login_btn",
             child: ElevatedButton(
               onPressed: () async {
-                //if (validatePassword(password_input.text)) {
+                if (formkey.currentState!.validate()) {
                   if (await Login(email_input.text, password_input.text)) {
                     print('logged in');
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   } else
                     print('login failed');
-                //}
+                } else {
+                  print("incorrect input retype");
+                }
               },
               child: Text(
                 "Login".toUpperCase(),
