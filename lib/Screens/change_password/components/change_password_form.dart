@@ -20,6 +20,45 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool _isVisible = false;
   bool _isVisible2 = false;
+  bool isPasswordCaps = false;
+  bool hasNumeric = false;
+  bool lowerCase = false;
+  bool hasSpecialCase = false;
+  bool lengthCheck = false;
+
+  onPasswordChanged(String password) {
+    final numericRegex = RegExp(r'[0-9]');
+    final CapsRegex = RegExp(r'[A-Z]');
+    final smallRegex = RegExp(r'[a-z]');
+    final specialChar = RegExp(r'[!@#\$&*~]');
+
+    setState(() {
+      lengthCheck = false;
+      if (password.length >= 8) {
+        lengthCheck = true;
+      }
+
+      isPasswordCaps = false;
+      if (CapsRegex.hasMatch(password)) {
+        isPasswordCaps = true;
+      }
+
+      hasSpecialCase = false;
+      if (specialChar.hasMatch(password)) {
+        hasSpecialCase = true;
+      }
+
+      lowerCase = false;
+      if (smallRegex.hasMatch(password)) {
+        lowerCase = true;
+      }
+
+      hasNumeric = false;
+      if (numericRegex.hasMatch(password)) {
+        hasNumeric = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +73,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            onChanged: (password) => onPasswordChanged(password),
             obscureText: !_isVisible,
             onSaved: (email) {},
             validator: (value) {
@@ -106,7 +146,167 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: defaultPadding / 2,
+          ),
+          Row(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    color: isPasswordCaps ? Colors.green : Colors.transparent,
+                    border: isPasswordCaps
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: Colors.red),
+                    borderRadius: BorderRadius.circular(50)),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                  style: TextStyle(
+                      color: isPasswordCaps ? kPrimaryColor : Colors.red),
+                  "Contains at least 1 Uppercase letter")
+            ],
+          ),
+          const SizedBox(
+            height: defaultPadding / 2,
+          ),
+          Row(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    color: lowerCase ? Colors.green : Colors.transparent,
+                    border: lowerCase
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: Colors.red),
+                    borderRadius: BorderRadius.circular(50)),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                  style:
+                      TextStyle(color: lowerCase ? kPrimaryColor : Colors.red),
+                  "Contains at least 1 lowercase letter")
+            ],
+          ),
+          const SizedBox(
+            height: defaultPadding / 2,
+          ),
+          Row(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    color: hasNumeric ? Colors.green : Colors.transparent,
+                    border: hasNumeric
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: Colors.red),
+                    borderRadius: BorderRadius.circular(50)),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                  style:
+                      TextStyle(color: hasNumeric ? kPrimaryColor : Colors.red),
+                  "Contains at least 1 number")
+            ],
+          ),
+          const SizedBox(
+            height: defaultPadding / 2,
+          ),
+          Row(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    color: hasSpecialCase ? Colors.green : Colors.transparent,
+                    border: hasSpecialCase
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: Colors.red),
+                    borderRadius: BorderRadius.circular(50)),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                  style: TextStyle(
+                      color: hasSpecialCase ? kPrimaryColor : Colors.red),
+                  "Contains at least 1 Special Character")
+            ],
+          ),
+          const SizedBox(
+            height: defaultPadding / 2,
+          ),
+          Row(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                    color: lengthCheck ? Colors.green : Colors.transparent,
+                    border: lengthCheck
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: Colors.red),
+                    borderRadius: BorderRadius.circular(50)),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                  style: TextStyle(
+                      color: lengthCheck ? kPrimaryColor : Colors.red),
+                  "Minimum of 8 characters")
+            ],
+          ),
+          const SizedBox(
+            height: defaultPadding,
           ),
           Hero(
             tag: "changepassword_btn",
