@@ -6,32 +6,44 @@ import '../../../constants.dart';
 import '../../Signup/signup_screen.dart';
 import '../../home/home_screen.dart';
 
-class ChangePasswordForm extends StatelessWidget {
-  ChangePasswordForm({
-    Key? key,
-  }) : super(key: key);
+class ChangePasswordForm extends StatefulWidget {
+  const ChangePasswordForm({super.key});
 
+  @override
+  State<ChangePasswordForm> createState() => _ChangePasswordFormState();
+}
+
+class _ChangePasswordFormState extends State<ChangePasswordForm> {
+  @override
   final password_input = TextEditingController();
   final confirm_password_input = TextEditingController();
-
-  bool validatePassword(String value) {
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = new RegExp(pattern);
-    return regExp.hasMatch(value);
-  }
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formkey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           TextFormField(
             controller: password_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
             onSaved: (email) {},
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Password cannot be blank";
+              } else if (!RegExp(
+                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                  .hasMatch(value!)) {
+                return "Enter a valid password";
+              } else {
+                return null;
+              }
+            },
             decoration: InputDecoration(
               hintText: "Enter New Password",
               prefixIcon: Padding(
@@ -43,8 +55,22 @@ class ChangePasswordForm extends StatelessWidget {
           const SizedBox(height: defaultPadding),
           TextFormField(
             controller: confirm_password_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Password cannot be blank";
+              } else if (confirm_password_input.text != password_input.text) {
+                return "Password does not match";
+              } else if (!RegExp(
+                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                  .hasMatch(value!)) {
+                return "Enter a valid password";
+              } else {
+                return null;
+              }
+            },
             cursorColor: kPrimaryColor,
             onSaved: (email) {},
             decoration: InputDecoration(
@@ -62,7 +88,7 @@ class ChangePasswordForm extends StatelessWidget {
             tag: "changepassword_btn",
             child: ElevatedButton(
               onPressed: () async {
-                if (validatePassword(password_input.text)) {
+                if (formkey.currentState!.validate()) {
                   if (await ChangePassword(password_input.text)) {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => HomeScreen()));
