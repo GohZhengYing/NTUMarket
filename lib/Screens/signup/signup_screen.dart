@@ -57,9 +57,7 @@ class MobileSignupScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const SignUpScreenTopImage(),
-          const SizedBox(
-            height: 70,
-          ),
+
           Row(
             children: [
               Spacer(),

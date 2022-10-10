@@ -20,22 +20,22 @@ class SignUpScreenTopImage extends StatelessWidget {
               color: Color(0xff171B5F)),
         ),
         SizedBox(height: defaultPadding),
-        Row(
-          children: [
-            const Spacer(),
-            Expanded(
-              flex: 8,
-              child: Container(
-                child: Image.asset(
-                  'assets/images/NTUWhite.png',
-                  height: 100,
-                  width: 200,
-                ),
-              ),
-            ),
-            const Spacer(),
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     const Spacer(),
+        //     Expanded(
+        //       flex: 8,
+        //       child: Container(
+        //         child: Image.asset(
+        //           'assets/images/NTUWhite.png',
+        //           height: 100,
+        //           width: 200,
+        //         ),
+        //       ),
+        //     ),
+        //     const Spacer(),
+        //   ],
+        // ),
         SizedBox(height: defaultPadding),
       ],
     );
