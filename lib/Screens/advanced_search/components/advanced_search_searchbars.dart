@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+
 
 import '../../search_results/search_results_screen.dart';
 
@@ -23,12 +25,13 @@ class AdvancedSearchSearchbars extends StatelessWidget {
                 padding:EdgeInsets.fromLTRB(0, 30, 0,0),
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width *0.867,
-                    child:Text('Name of Material',
+                    child:AutoSizeText('Name of Material',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
                           fontSize: 20
-                      ),)
+                      ),
+                    )
                 )
             ),
             Padding(
@@ -57,7 +60,7 @@ class AdvancedSearchSearchbars extends StatelessWidget {
                 padding:EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width *0.867,
-                    child:Text('Category',
+                    child:AutoSizeText('Category',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
@@ -79,7 +82,7 @@ class AdvancedSearchSearchbars extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SearchResultsScreen(name: name.text,cat: category.text)));
             },
-            child: Text("Search"),
+            child: AutoSizeText("Search"),
           ),
         )
       ],

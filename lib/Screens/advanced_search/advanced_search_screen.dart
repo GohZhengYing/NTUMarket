@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'components/advanced_search_searchbars.dart';
 //import 'package:flutter_text'
 

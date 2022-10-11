@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/background.dart';
@@ -50,7 +51,7 @@ class MobileChangePasswordScreen extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        Text("Choose a New Password",
+        AutoSizeText("Choose a New Password",
             style: const TextStyle(
               fontSize: 16,
               color: Colors.black87,

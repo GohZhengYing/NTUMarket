@@ -1,4 +1,5 @@
 import 'package:NtuMarket/models/model_provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -171,7 +172,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
               SizedBox(
                 width: 10,
               ),
-              Text(
+              AutoSizeText(
                   style: TextStyle(
                       color: isPasswordCaps ? kPrimaryColor : Colors.red),
                   "Contains at least 1 Uppercase letter")
@@ -203,7 +204,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
               SizedBox(
                 width: 10,
               ),
-              Text(
+              AutoSizeText(
                   style:
                       TextStyle(color: lowerCase ? kPrimaryColor : Colors.red),
                   "Contains at least 1 lowercase letter")
@@ -235,7 +236,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
               SizedBox(
                 width: 10,
               ),
-              Text(
+              AutoSizeText(
                   style:
                       TextStyle(color: hasNumeric ? kPrimaryColor : Colors.red),
                   "Contains at least 1 number")
@@ -267,7 +268,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
               SizedBox(
                 width: 10,
               ),
-              Text(
+              AutoSizeText(
                   style: TextStyle(
                       color: hasSpecialCase ? kPrimaryColor : Colors.red),
                   "Contains at least 1 Special Character")
@@ -299,7 +300,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
               SizedBox(
                 width: 10,
               ),
-              Text(
+              AutoSizeText(
                   style: TextStyle(
                       color: lengthCheck ? kPrimaryColor : Colors.red),
                   "Minimum of 8 characters")
@@ -321,7 +322,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                   }
                 }
               },
-              child: Text(
+              child: AutoSizeText(
                 "Change Password".toUpperCase(),
               ),
             ),
