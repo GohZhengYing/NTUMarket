@@ -1,5 +1,6 @@
 import 'package:NtuMarket/Screens/login/login_screen.dart';
 import 'package:NtuMarket/models/model_provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -67,7 +68,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
                   );
                 }
               },
-              child: Text(
+              child: AutoSizeText(
                 "Forget Password".toUpperCase(),
               ),
             ),
@@ -86,7 +87,7 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
                 );
               }
             },
-            child: Text(
+            child: AutoSizeText(
               "Return to sign in",
               style: const TextStyle(
                 color: kPrimaryColor,

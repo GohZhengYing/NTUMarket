@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -151,7 +152,7 @@ class _CreatePostForm extends State<CreatePostForm> {
                   print('post failed');
 
               },
-              child: const Text(
+              child: const AutoSizeText(
                 "List It",
               ),
             ),

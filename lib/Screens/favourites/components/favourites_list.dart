@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,7 +32,7 @@ class _FavouritesListState extends State<FavouritesList> {
             padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
             child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.867,
-                child: Text(
+                child: AutoSizeText(
                   'Favourites',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -73,9 +74,9 @@ class _FavouritesListState extends State<FavouritesList> {
                           child: Image.memory( Base64Decoder().convert(post.image)),
                         ),
                       ),
-                      Text(post.title),
-                      Text('${post.category} \$${post.price}'),
-                      Text(' '),
+                      AutoSizeText(post.title),
+                      AutoSizeText('${post.category} \$${post.price}'),
+                      AutoSizeText(' '),
                     ],
                   ),
                 ),

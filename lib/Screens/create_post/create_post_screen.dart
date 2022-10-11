@@ -10,6 +10,7 @@ import '../../constants.dart';
 import '../home/home_screen.dart';
 import 'component/create_post_form.dart';
 import 'component/create_post_image.dart';
+
 class CreatePostScreen extends StatefulWidget {
   CreatePostScreen({Key? key}) : super(key: key);
   XFile? image;

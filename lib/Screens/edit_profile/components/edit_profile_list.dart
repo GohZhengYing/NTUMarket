@@ -1,4 +1,5 @@
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class EditProfileList extends StatelessWidget {
             padding:EdgeInsets.fromLTRB(0, 30, 0, 10),
             child: SizedBox(
                 width: MediaQuery.of(context).size.width *0.867,
-                child:Text('Edit Profile',
+                child:AutoSizeText('Edit Profile',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,

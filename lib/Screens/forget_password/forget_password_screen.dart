@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 
@@ -41,7 +42,7 @@ class MobileForgetPasswordScreen extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        Text("Find Your Account",
+        AutoSizeText("Find Your Account",
             style: const TextStyle(
               color: Colors.black87,
               fontWeight: FontWeight.bold,
@@ -49,7 +50,7 @@ class MobileForgetPasswordScreen extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Text("Enter your email address",
+        AutoSizeText("Enter your email address",
             style: const TextStyle(
               color: Colors.black54,
               fontWeight: FontWeight.w500,
