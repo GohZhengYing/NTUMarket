@@ -63,25 +63,25 @@ class _ViewPostAsBuyerScreenState extends State<ViewPostAsBuyerScreen> {
             elevation: 0,
             leading: IconButton(onPressed:() {Navigator.pop(context,'refresh');}, icon: Icon(Icons.keyboard_arrow_left),color: Colors.black,iconSize: 40),
             actions: [
-              // IconButton(
-              //   onPressed: () async {
-              //     if(fav==Colors.yellow){
-              //       if(await DeleteFavourites(widget.post.id)){
-              //         setState(() {
-              //           fav = Colors.grey;
-              //         });
-              //       };
-              //     }
-              //     else{
-              //       if(await AddFavourites(widget.post.id)){
-              //       setState(() {
-              //         fav = Colors.yellow;
-              //       });
-              //       }
-              //     }
-              //   },
-              //   icon: Icon(Icons.star,color: fav),
-              // ),
+              IconButton(
+                onPressed: () async {
+                  if(fav==Colors.yellow){
+                    if(await DeleteFavourites(widget.post.id)){
+                      setState(() {
+                        fav = Colors.grey;
+                      });
+                    };
+                  }
+                  else{
+                    if(await AddFavourites(widget.post.id)){
+                    setState(() {
+                      fav = Colors.yellow;
+                    });
+                    }
+                  }
+                },
+                icon: Icon(Icons.star,color: fav),
+              ),
             ],
           ),
           body: Column(

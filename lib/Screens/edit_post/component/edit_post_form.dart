@@ -107,7 +107,7 @@ class EditPostForm extends StatefulWidget {
 
 class _EditPostForm extends State<EditPostForm> {
   String dropdownvalue = 'Electronics';
-
+  bool submitted = false;
 
 
   var items = [
@@ -122,6 +122,20 @@ class _EditPostForm extends State<EditPostForm> {
   @override
 
   Widget build(BuildContext context) {
+
+    if(submitted){
+      return Container(
+        child: Center(
+          child: SizedBox(height: 50.0,
+            width:50.0,
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        color: Colors.white,
+
+      );
+    }
+
     return Form(
 
       child: Column(
@@ -201,6 +215,11 @@ class _EditPostForm extends State<EditPostForm> {
             tag: "save_edit_button",
             child: ElevatedButton(
               onPressed: () async {
+
+                setState(() {
+                  submitted = true;
+                });
+
                 if(widget.category_input== null){
                   setState(() {
                     widget.category_input.text = 'Electronics';
@@ -214,6 +233,11 @@ class _EditPostForm extends State<EditPostForm> {
                 }
                 else
                 print('edit failed');
+
+                setState(() {
+                  submitted = false;
+                });
+
               },
               child: AutoSizeText(
                 "Save Edit",

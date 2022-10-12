@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 
-
+// final String url = "10.0.2.2:5000";
 final String url = "ntumarket.herokuapp.com";
 
 Future<bool> Initialize() async {

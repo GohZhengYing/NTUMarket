@@ -19,12 +19,14 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   bool searchSubmitted = false;
   TextEditingController searchInput = new TextEditingController();
   List<Post> result = [];
+  bool submitted = true;
 
   Future<void> SearchPosts() async {
     super.initState();
     List<Post> _result = await SearchPost(widget.name,widget.cat) ;
     setState(() {
       result = _result;
+      submitted = false;
     });
   }
 
@@ -69,6 +71,21 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     child:Center(
                       child: Column(
                         children: [
+                          submitted?
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+                                child: Container(
+                                child: Center(
+                                child: SizedBox(height: 50.0,
+                                width:50.0,
+                                child: CircularProgressIndicator(),
+                                ),
+                                ),
+                                color: Colors.white,
+
+                          ),
+                              ):
+
                           //SearchResultsSearchbar(searchInput: searchInput,result: result,),
                           SearchResultsResultsList(result: result,)
                         ],

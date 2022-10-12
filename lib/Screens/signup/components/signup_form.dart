@@ -24,6 +24,7 @@ class _SignUpFormState extends State<SignUpForm> {
   bool hasSpecialCase = false;
   bool lengthCheck = false;
   bool _isVisible = false;
+  bool submitted = false;
 
   onPasswordChanged(String password) {
     final numericRegex = RegExp(r'[0-9]');
@@ -61,6 +62,21 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+
+    if(submitted){
+      return Container(
+        child: Center(
+          child: SizedBox(height: 50.0,
+            width:50.0,
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        color: Colors.white,
+
+      );
+    }
+
+
     return Form(
       key: formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -290,6 +306,9 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
             onPressed: () async {
+              setState(() {
+                submitted = true;
+              });
               if (formkey.currentState!.validate()) {
                 if (await Signup(email_input.text, password_input.text)) {
                   print('signed up');
@@ -300,6 +319,9 @@ class _SignUpFormState extends State<SignUpForm> {
               } else {
                 print("incorrect input retype");
               }
+              setState(() {
+                submitted = false;
+              });
             },
             child: Text("Sign Up".toUpperCase()),
           ),

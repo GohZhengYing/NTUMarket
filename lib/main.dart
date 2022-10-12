@@ -56,7 +56,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     if(loading){
-      return Container();
+      return Container(
+        child: Center(
+          child: SizedBox(height: 50.0,
+            width:50.0,
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        color: Colors.white,
+
+      );
     }
   //print("Logged in:"+(loggedIn).toString());
     return MaterialApp(

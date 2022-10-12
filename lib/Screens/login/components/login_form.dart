@@ -21,9 +21,24 @@ class _LoginFormState extends State<LoginForm> {
   final password_input = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool _isVisible = false;
+  bool submitted = false;
 
   @override
   Widget build(BuildContext context) {
+
+    if(submitted){
+      return Container(
+        child: Center(
+          child: SizedBox(height: 50.0,
+            width:50.0,
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        color: Colors.white,
+
+      );
+    }
+
     return Form(
       key: formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -94,16 +109,24 @@ class _LoginFormState extends State<LoginForm> {
             tag: "login_btn",
             child: ElevatedButton(
               onPressed: () async {
+
+                setState(() {
+                  submitted = true;
+                });
+
                 if (formkey.currentState!.validate()) {
                   if (await Login(email_input.text, password_input.text)) {
                     print('logged in');
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => HomeScreen()));
-                  } else
-                    print('login failed');
+                  } else{
+                    print('login failed');}
                 } else {
                   print("incorrect input retype");
                 }
+                setState(() {
+                  submitted = false;
+                });
               },
               child: Text(
                 "Login".toUpperCase(),

@@ -33,6 +33,7 @@ class CreatePostForm extends StatefulWidget {
 
 class _CreatePostForm extends State<CreatePostForm> {
   String dropdownvalue = 'Electronics';
+  bool submitted = false;
 
 
 
@@ -52,6 +53,20 @@ class _CreatePostForm extends State<CreatePostForm> {
   @override
 
   Widget build(BuildContext context) {
+
+    if(submitted){
+      return Container(
+        child: Center(
+          child: SizedBox(height: 50.0,
+            width:50.0,
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        color: Colors.white,
+
+      );
+    }
+
     return Form(
 
       child: Column(
@@ -132,17 +147,16 @@ class _CreatePostForm extends State<CreatePostForm> {
             tag: "save_edit_button",
             child: ElevatedButton(
               onPressed: () async {
+                setState(() {
+                  submitted = true;
+                });
+
                 if(widget.category_input== null){
                   setState(() {
                     widget.category_input.text = 'Electronics';
                   });
                 };
-                // ist<int> imageBytes = widget.fileData;
-                // print(imageBytes);
-                // String base64Image = base64Encode(imageBytes);
-                //print("File:\n");
-                //print(widget.image_input.text);
-                //print(widget.title_input.text+' '+widget.description_input.text+' '+widget.price_input.text+' '+widget.image_input.text+' '+widget.category_input.text);
+
                 if(await CreatePost(widget.title_input.text ,widget.description_input.text,widget.price_input.text,widget.image_input.text,widget.category_input.text)){
 
                   print('created post');
@@ -150,6 +164,11 @@ class _CreatePostForm extends State<CreatePostForm> {
                 }
                 else
                   print('post failed');
+
+                setState(() {
+                  submitted = false;
+                });
+
 
               },
               child: const AutoSizeText(
