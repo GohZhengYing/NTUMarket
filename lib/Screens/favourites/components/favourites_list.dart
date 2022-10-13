@@ -32,7 +32,7 @@ class _FavouritesListState extends State<FavouritesList> {
             padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
             child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.867,
-                child: AutoSizeText(
+                child: Text(
                   'Favourites',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -74,9 +74,9 @@ class _FavouritesListState extends State<FavouritesList> {
                           child: Image.memory( Base64Decoder().convert(post.image)),
                         ),
                       ),
-                      AutoSizeText(post.title),
-                      AutoSizeText('${post.category} \$${post.price}'),
-                      AutoSizeText(' '),
+                      Text(post.title),
+                      Text('${post.category} \$${post.price}'),
+                      Text(' '),
                     ],
                   ),
                 ),
