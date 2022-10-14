@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -106,14 +105,17 @@ class EditPostForm extends StatefulWidget {
 }
 
 class _EditPostForm extends State<EditPostForm> {
-  String dropdownvalue = 'Electronics';
-  bool submitted = false;
+  String dropdownvalue = 'Exam Papers';
 
+
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   var items = [
-    'Electronics',
-    'Textbook',
-    'Other stuff',
+    'Exam Papers',
+    'Stationaries',
+    'Lecture Notes',
+    'Hardware',
+    'Others',
   ];
 
 
@@ -122,29 +124,24 @@ class _EditPostForm extends State<EditPostForm> {
   @override
 
   Widget build(BuildContext context) {
-
-    if(submitted){
-      return Container(
-        child: Center(
-          child: SizedBox(height: 50.0,
-            width:50.0,
-            child: CircularProgressIndicator(),
-          ),
-        ),
-        color: Colors.white,
-
-      );
-    }
-
     return Form(
-
+      key: formkey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           TextFormField(
             controller: widget.title_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Title cannot be blank";
+              } else {
+                return null;
+              }
+            },
             decoration: const InputDecoration(
               hintText: "Title",
               prefixIcon: Padding(
@@ -157,10 +154,18 @@ class _EditPostForm extends State<EditPostForm> {
             padding:  const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
               controller: widget.price_input,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
               onSaved: (price) {},
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Price cannot be blank";
+                } else {
+                  return null;
+                }
+              },
               decoration: const InputDecoration(
                 hintText: "Value of your item",
                 prefixIcon: Padding(
@@ -194,11 +199,19 @@ class _EditPostForm extends State<EditPostForm> {
 
           TextFormField(
             controller: widget.description_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.multiline,
             maxLines: null,
             textInputAction: TextInputAction.done,
             cursorColor: kPrimaryColor,
             onSaved: (description) {},
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Description cannot be blank";
+              } else {
+                return null;
+              }
+            },
             decoration: const InputDecoration(
               hintText: "Description of your item",
               prefixIcon: Padding(
@@ -215,31 +228,27 @@ class _EditPostForm extends State<EditPostForm> {
             tag: "save_edit_button",
             child: ElevatedButton(
               onPressed: () async {
-
-                setState(() {
-                  submitted = true;
-                });
-
-                if(widget.category_input== null){
-                  setState(() {
-                    widget.category_input.text = 'Electronics';
-                  });
-                };
-                if(await EditPost(widget.title_input.text ,widget.description_input.text,widget.price_input.text,widget.image_input.text,widget.category_input.text,widget.post.id)){
-
-                print('edited post');
-                Navigator.pop(context);
-                Navigator.pop(context,'refresh');
+                if (formkey.currentState!.validate()) {
+                  if (widget.category_input == null) {
+                    setState(() {
+                      widget.category_input.text = 'Others';
+                    });
+                  };
+                  if (await EditPost(
+                      widget.title_input.text, widget.description_input.text,
+                      widget.price_input.text, widget.image_input.text,
+                      widget.category_input.text, widget.post.id)) {
+                    print('edited post');
+                    Navigator.pop(context);
+                    Navigator.pop(context, 'refresh');
+                  }
+                  else
+                    print('edit failed');
+                } else {
+                  print("Incorrect input, please check again");
                 }
-                else
-                print('edit failed');
-
-                setState(() {
-                  submitted = false;
-                });
-
               },
-              child: AutoSizeText(
+              child: Text(
                 "Save Edit",
               ),
             ),
