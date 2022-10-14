@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,15 +31,22 @@ class CreatePostForm extends StatefulWidget {
 }
 
 class _CreatePostForm extends State<CreatePostForm> {
-  String dropdownvalue = 'Electronics';
-  bool submitted = false;
+  String dropdownvalue = 'Exam Papers';
+
+  final title_input2 = TextEditingController();
+  final price_input2 = TextEditingController();
+  final desc_input2 = TextEditingController();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
 
 
 
   var items = [
-    'Electronics',
-    'Textbook',
-    'Other stuff',
+    'Exam Papers',
+    'Stationaries',
+    'Lecture Notes',
+    'Hardware',
+    'Others',
   ];
 
   void initState(){
@@ -53,30 +59,25 @@ class _CreatePostForm extends State<CreatePostForm> {
   @override
 
   Widget build(BuildContext context) {
-
-    if(submitted){
-      return Container(
-        child: Center(
-          child: SizedBox(height: 50.0,
-            width:50.0,
-            child: CircularProgressIndicator(),
-          ),
-        ),
-        color: Colors.white,
-
-      );
-    }
-
     return Form(
-
+      key: formkey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           TextFormField(
             controller: widget.title_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
             onSaved: (title) {},
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Title cannot be blank";
+              } else {
+                return null;
+              }
+            },
             decoration: const InputDecoration(
               hintText: "Eye-catching title",
               prefixIcon: Padding(
@@ -93,6 +94,13 @@ class _CreatePostForm extends State<CreatePostForm> {
               textInputAction: TextInputAction.next,
               cursorColor: kPrimaryColor,
               onSaved: (price) {},
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Price cannot be blank";
+                } else {
+                  return null;
+                }
+              },
               decoration: const InputDecoration(
                 hintText: "Value of your item",
                 prefixIcon: Padding(
@@ -126,9 +134,17 @@ class _CreatePostForm extends State<CreatePostForm> {
 
           TextFormField(
             controller: widget.description_input,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.multiline,
             maxLines: null,
             textInputAction: TextInputAction.done,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Description cannot be blank";
+              } else {
+                return null;
+              }
+            },
             cursorColor: kPrimaryColor,
             onSaved: (description) {},
             decoration: const InputDecoration(
@@ -147,31 +163,33 @@ class _CreatePostForm extends State<CreatePostForm> {
             tag: "save_edit_button",
             child: ElevatedButton(
               onPressed: () async {
-                setState(() {
-                  submitted = true;
-                });
-
-                if(widget.category_input== null){
-                  setState(() {
-                    widget.category_input.text = 'Electronics';
-                  });
-                };
-
-                if(await CreatePost(widget.title_input.text ,widget.description_input.text,widget.price_input.text,widget.image_input.text,widget.category_input.text)){
-
-                  print('created post');
-                  Navigator.pop(context,'refresh');
+                if (formkey.currentState!.validate()) {
+                  if (widget.category_input == null) {
+                    setState(() {
+                      widget.category_input.text = 'Others';
+                    });
+                  };
+                  // ist<int> imageBytes = widget.fileData;
+                  // print(imageBytes);
+                  // String base64Image = base64Encode(imageBytes);
+                  //print("File:\n");
+                  //print(widget.image_input.text);
+                  //print(widget.title_input.text+' '+widget.description_input.text+' '+widget.price_input.text+' '+widget.image_input.text+' '+widget.category_input.text);
+                  if (await CreatePost(
+                      widget.title_input.text, widget.description_input.text,
+                      widget.price_input.text, widget.image_input.text,
+                      widget.category_input.text)) {
+                    print('created post');
+                    Navigator.pop(context, 'refresh');
+                  }
+                  else
+                    print('post failed');
+                } else {
+                  print("Incorrect input, please check again");
                 }
-                else
-                  print('post failed');
-
-                setState(() {
-                  submitted = false;
-                });
-
 
               },
-              child: const AutoSizeText(
+              child: const Text(
                 "List It",
               ),
             ),
