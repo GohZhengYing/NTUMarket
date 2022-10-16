@@ -31,16 +31,16 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
             elevation: 0,
             leading: IconButton(onPressed:() {Navigator.pop(context);}, icon: Icon(Icons.keyboard_arrow_left),color: Colors.black,iconSize: 40),
             actions: [
-              IconButton(
-                onPressed: () {},
-                icon: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Image.asset(
-                    "assets/images/Dora.jpg",
-                    height: 20,
-                  ),
-                ),
-              ),
+              // IconButton(
+              //   onPressed: () {},
+              //   icon: CircleAvatar(
+              //     backgroundColor: Colors.white,
+              //     child: Image.asset(
+              //       "assets/images/Dora.jpg",
+              //       height: 20,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           body: Column(

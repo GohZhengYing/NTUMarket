@@ -1,3 +1,4 @@
+import 'package:NtuMarket/Screens/customer_support/customer_support_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class SettingsList extends StatelessWidget {
           child: const Text('Edit Profile',style: TextStyle(color: Colors.black)),
           style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))
           ,),
-        OutlinedButton(onPressed: () {debugPrint('Clicked');},
+        OutlinedButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context)=> CustomerSupportScreen()));},
           child: const Text('Customer Support',style: TextStyle(color: Colors.black)),
           style: OutlinedButton.styleFrom(side: BorderSide(color: Colors.transparent))
           ,),

@@ -11,8 +11,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Background(
+    return Background(
+      child: SafeArea(
         child: SingleChildScrollView(
           child: Responsive(
             mobile: const MobileLoginScreen(),

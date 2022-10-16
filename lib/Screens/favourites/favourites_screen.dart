@@ -19,6 +19,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   late GlobalKey<ScaffoldState> _scaffoldKey;
 
+  bool submitted = true;
   bool refresh = false;
   List<Post> posts = [];
 
@@ -32,6 +33,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     List<Post>_posts = await FetchFavourites();
     setState(() {
       posts = _posts;
+      submitted = false;
     });
 
 
@@ -67,6 +69,18 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           backgroundColor: Colors.white,
           body:  LayoutBuilder(
             builder: (BuildContext context, BoxConstraints viewportConstraints) {
+              if(submitted){
+                return Container(
+                  child: Center(
+                    child: SizedBox(height: 50.0,
+                      width:50.0,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                  color: Colors.white,
+
+                );
+              }
               return SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
@@ -76,6 +90,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     child:Center(
                       child: Column(
                         children: <Widget>[
+
                           FavouritesList(posts: posts, ref: ref,),
                           refresh? Container():Container()
                         ],

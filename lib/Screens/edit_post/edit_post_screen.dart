@@ -56,6 +56,7 @@ class _EditPostScreenState extends State<EditPostScreen> {
       onWillPop: ()async => false,
       child: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: true,
           extendBodyBehindAppBar: false,
           backgroundColor: Colors.white,
           appBar: AppBar(

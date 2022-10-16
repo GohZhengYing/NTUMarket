@@ -40,7 +40,6 @@ class ViewPostAsBuyerEmailForm extends StatelessWidget {
             tag: "save_edit_button",
             child: ElevatedButton(
               onPressed: () {
-                sendEmail();
                 Navigator.pop(context);
                 Navigator.pop(context);
               },
@@ -55,24 +54,3 @@ class ViewPostAsBuyerEmailForm extends StatelessWidget {
   }
 }
 
-Future sendEmail() async{
-  final email = 'gohz0042@e.ntu.edu.sg';
-
-  final smtpServer = hotmail('gohz0042@e.ntu.edu.sg','Monopolydeal456');
-  final message = Message()
-    ..from = Address(email,'Zheng ying')
-    ..recipients = ['gohz0042@e.ntu.edu.sg']
-    ..subject = 'test'
-    ..text = 'hello';
-
-
-  try {
-    final sendReport = await send(message, smtpServer);
-    print('Message sent: ' + sendReport.toString());
-  } on MailerException catch (e) {
-    print('Message not sent.');
-    for (var p in e.problems) {
-      print('Problem: ${p.code}: ${p.msg}');
-    }
-  }
-}

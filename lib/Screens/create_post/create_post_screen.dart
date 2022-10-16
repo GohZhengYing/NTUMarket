@@ -32,7 +32,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       onWillPop: () async => false,
       child: SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           extendBodyBehindAppBar: false,
           backgroundColor: Colors.white,
           appBar: AppBar(
