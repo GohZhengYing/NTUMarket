@@ -13,6 +13,8 @@ class CreatePostForm extends StatefulWidget {
   TextEditingController price_input ;
   TextEditingController category_input;
   TextEditingController image_input ;
+  bool submitted;
+  Function ss;
 
   CreatePostForm({
     Key? key,
@@ -21,6 +23,8 @@ class CreatePostForm extends StatefulWidget {
     required this.price_input,
     required this.category_input,
     required this.image_input,
+    required this.submitted,
+    required this.ss
 
   }) : super(key: key);
 
@@ -31,7 +35,7 @@ class CreatePostForm extends StatefulWidget {
 }
 
 class _CreatePostForm extends State<CreatePostForm> {
-  String dropdownvalue = 'Exam Papers';
+  String dropdownvalue = 'Exam Papers(Student answers)';
 
   final title_input2 = TextEditingController();
   final price_input2 = TextEditingController();
@@ -42,7 +46,7 @@ class _CreatePostForm extends State<CreatePostForm> {
 
 
   var items = [
-    'Exam Papers',
+    'Exam Papers(Student answers)',
     'Stationaries',
     'Lecture Notes',
     'Hardware',
@@ -59,6 +63,18 @@ class _CreatePostForm extends State<CreatePostForm> {
   @override
 
   Widget build(BuildContext context) {
+
+    // if(widget.submitted)return Container(
+    //   child: Center(
+    //     child: SizedBox(height: 50.0,
+    //       width:50.0,
+    //       child: CircularProgressIndicator(),
+    //     ),
+    //   ),
+    //   color: Colors.white,
+    //
+    // );
+
     return Form(
       key: formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -75,6 +91,8 @@ class _CreatePostForm extends State<CreatePostForm> {
               if (value!.isEmpty) {
                 return "Title cannot be blank";
               } else {
+                print("after");
+                print(widget.image_input.text);
                 return null;
               }
             },
@@ -166,24 +184,20 @@ class _CreatePostForm extends State<CreatePostForm> {
                 if (formkey.currentState!.validate()) {
                   if (widget.category_input == null) {
                     setState(() {
-                      widget.category_input.text = 'Others';
+
+                      widget.category_input.text = 'Exam Papers(Student answers)';
                     });
                   };
-                  // ist<int> imageBytes = widget.fileData;
-                  // print(imageBytes);
-                  // String base64Image = base64Encode(imageBytes);
-                  //print("File:\n");
-                  //print(widget.image_input.text);
-                  //print(widget.title_input.text+' '+widget.description_input.text+' '+widget.price_input.text+' '+widget.image_input.text+' '+widget.category_input.text);
-                  if (await CreatePost(
-                      widget.title_input.text, widget.description_input.text,
-                      widget.price_input.text, widget.image_input.text,
-                      widget.category_input.text)) {
-                    print('created post');
-                    Navigator.pop(context, 'refresh');
-                  }
-                  else
-                    print('post failed');
+
+                  setState(() {
+                    widget.ss();
+                    // widget.submitted = true;
+                  });
+
+
+                  // setState(() {
+                  //   widget.ss();
+                  // });
                 } else {
                   print("Incorrect input, please check again");
                 }

@@ -12,11 +12,20 @@ import 'component/ProductOwner.dart';
 
 import 'component/colordot.dart';
 
-class ViewPostAsOwnerScreen extends StatelessWidget {
+class ViewPostAsOwnerScreen extends StatefulWidget {
+  final Post post;
   const ViewPostAsOwnerScreen({Key? key, required this.post})
       : super(key: key);
 
-  final Post post;
+  @override
+  _ViewPostAsOwnerScreenState createState() => _ViewPostAsOwnerScreenState();
+}
+
+class _ViewPostAsOwnerScreenState extends State<ViewPostAsOwnerScreen> {
+
+
+
+  bool submitted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +54,7 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Image.memory( Base64Decoder().convert(post.image),height: 200),
+              Image.memory( Base64Decoder().convert(widget.post.image),height: 200),
               const SizedBox(height: defaultPadding * 1.5),
               Expanded(
                 child: Container(
@@ -65,13 +74,13 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              post.title,
+                              widget.post.title,
                               style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
                           const SizedBox(width: defaultPadding),
                           Text(
-                            "\$" + post.price.toString(),
+                            "\$" + widget.post.price.toString(),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
@@ -79,7 +88,7 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: defaultPadding),
                         child: Text(
-                          post.description,
+                          widget.post.description,
                         ),
                       ),
                       // Text(
@@ -115,7 +124,7 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => EditPostScreen(post:post))
+                                    MaterialPageRoute(builder: (context) => EditPostScreen(post:widget.post))
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -139,8 +148,36 @@ class ViewPostAsOwnerScreen extends StatelessWidget {
                                           actions: [
                                             TextButton(
                                               onPressed: () async {
-                                                if(await DeletePost(post.id)){
+                                                // if(submitted){
+                                                //   return Container(
+                                                //     child: Center(
+                                                //       child: SizedBox(height: 50.0,
+                                                //         width:50.0,
+                                                //         child: CircularProgressIndicator(),
+                                                //       ),
+                                                //     ),
+                                                //     color: Colors.white,
+                                                //
+                                                //   );
+                                                // }
+                                                showDialog(
+                                                context: context
+                                                , builder: (BuildContext context) {
+                                                    return Container(
+                                                      child: Center(
+                                                        child: SizedBox(height: 50.0,
+                                                          width:50.0,
+                                                          child: CircularProgressIndicator(),
+                                                        ),
+                                                      ),
+                                                      color: Colors.white,
+
+                                                    );
+                                                }
+                                                );
+                                                if(await DeletePost(widget.post.id)){
                                                 print('deleted post');
+                                                Navigator.pop(context);
                                                 Navigator.pop(context);
                                                 Navigator.pop(context,'refresh');
                                                 }

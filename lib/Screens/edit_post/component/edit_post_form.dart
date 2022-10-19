@@ -105,13 +105,13 @@ class EditPostForm extends StatefulWidget {
 }
 
 class _EditPostForm extends State<EditPostForm> {
-  String dropdownvalue = 'Exam Papers';
-
+  String dropdownvalue = 'Exam Papers(Student answers)';
+  bool submitted = false;
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   var items = [
-    'Exam Papers',
+    'Exam Papers(Student answers)',
     'Stationaries',
     'Lecture Notes',
     'Hardware',
@@ -121,9 +121,12 @@ class _EditPostForm extends State<EditPostForm> {
 
 
 
+
   @override
 
   Widget build(BuildContext context) {
+
+
     return Form(
       key: formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -228,22 +231,46 @@ class _EditPostForm extends State<EditPostForm> {
             tag: "save_edit_button",
             child: ElevatedButton(
               onPressed: () async {
+                showDialog(
+                    context: context
+                    , builder: (BuildContext context) {
+                  return Container(
+                    child: Center(
+                      child: SizedBox(height: 50.0,
+                        width:50.0,
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    color: Colors.white,
+
+                  );
+                }
+                );
                 if (formkey.currentState!.validate()) {
                   if (widget.category_input == null) {
                     setState(() {
-                      widget.category_input.text = 'Others';
+
+                      widget.category_input.text = 'Exam Papers(Student answers)';
                     });
                   };
+                  setState(() {
+                    submitted = true;
+                  });
                   if (await EditPost(
                       widget.title_input.text, widget.description_input.text,
                       widget.price_input.text, widget.image_input.text,
                       widget.category_input.text, widget.post.id)) {
                     print('edited post');
                     Navigator.pop(context);
+                    Navigator.pop(context);
                     Navigator.pop(context, 'refresh');
                   }
                   else
-                    print('edit failed');
+                    {print('edit failed');
+                    Navigator.pop(context);}
+
+
+
                 } else {
                   print("Incorrect input, please check again");
                 }

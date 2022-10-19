@@ -37,6 +37,7 @@ import '../../../../constants.dart';
 class CreatePostImage extends StatefulWidget {
   XFile? image;
   TextEditingController image_input ;
+
   CreatePostImage({Key? key,required this.image,required this.image_input}) : super(key: key);
 
   @override
@@ -49,8 +50,10 @@ class _CreatePostImageState extends State<CreatePostImage> {
 
   final ImagePicker picker = ImagePicker();
 
-//we can upload image from camera or from gallery based on parameter
+
+
   Future getImage(ImageSource media) async {
+    // await picker.retrieveLostData();
     var img = await picker.pickImage(source: media);
 
     setState(() {
@@ -107,6 +110,7 @@ class _CreatePostImageState extends State<CreatePostImage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         Row(
@@ -114,14 +118,11 @@ class _CreatePostImageState extends State<CreatePostImage> {
             Spacer(),
             Expanded(
                 flex: 8,
-                child: widget.image != null
-                    ? Image.file(
-                        //to show image, you type like this.
-                        File(widget.image!.path),
-                        fit: BoxFit.cover,
-                        width: MediaQuery.of(context).size.width,
-                        height: 200,
-                      )
+                child: widget.image_input.text != ""
+                    ? Center(
+                  child: Image.memory( Base64Decoder().convert(widget.image_input.text),height: 200),
+                )
+                //Image.memory( Base64Decoder().convert(widget.image_input.text))
                     : Center(
                       child: Text(
                         "No Image",

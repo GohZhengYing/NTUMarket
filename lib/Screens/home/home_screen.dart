@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // This widget is the root of your application.
 
   void initState(){
-    _scaffoldKey = GlobalKey();
+    //_scaffoldKey = GlobalKey();
     super.initState();
     LoadPosts();
   }

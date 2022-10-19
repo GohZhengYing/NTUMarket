@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants.dart';
 
+import '../../models/model_provider.dart';
 import '../Favourites/favourites_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -19,11 +20,31 @@ class CreatePostScreen extends StatefulWidget {
   final price_input = TextEditingController();
   final category_input = TextEditingController();
   final image_input = TextEditingController();
+  bool submitted = false;
 
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
 class _CreatePostScreenState extends State<CreatePostScreen> {
+
+  Future<void> ss() async {
+    setState(() {
+      widget.submitted = widget.submitted? false:true;
+    });
+    if (await CreatePost(
+    widget.title_input.text, widget.description_input.text,
+    widget.price_input.text, widget.image_input.text,
+    widget.category_input.text)) {
+    print('created post');
+    Navigator.pop(context, 'refresh');
+    }
+    else
+    print('post failed');
+
+    setState(() {
+      widget.submitted = widget.submitted? false:true;
+    });
+  }
 
 
   @override
@@ -61,6 +82,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           body: LayoutBuilder(
             builder:
                 (BuildContext context, BoxConstraints viewportConstraints) {
+
+
               return SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
@@ -70,10 +93,21 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: Column(
+                        child:
+                        widget.submitted?Container(
+                          child: Center(
+                            child: SizedBox(height: 50.0,
+                              width:50.0,
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                          color: Colors.white,
+
+                        ):
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            CreatePostImage(image: widget.image,image_input: widget.image_input,),
+                            CreatePostImage(image: widget.image,image_input: widget.image_input),
                             const SizedBox(height: 20),
                             Row(children: [
                               Spacer(),
@@ -85,6 +119,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                     price_input: widget.price_input,
                                     category_input: widget.category_input,
                                     image_input: widget.image_input,
+                                    submitted: widget.submitted,
+                                    ss:ss
                                 ),
                               ),
                               Spacer(),

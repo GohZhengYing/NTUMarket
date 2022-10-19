@@ -49,12 +49,28 @@ class EditProfileList extends StatelessWidget {
               actions: [
                 TextButton(
                   onPressed: () async {
+                    showDialog(
+                        context: context
+                        , builder: (BuildContext context) {
+                      return Container(
+                        child: Center(
+                          child: SizedBox(height: 50.0,
+                            width:50.0,
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        color: Colors.white,
+
+                      );
+                    }
+                    );
                     if(await DeleteAccount()){
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => WelcomeScreen())
                       );}
                     else
-                      print('delete failed');
+                      {print('delete failed');
+                      Navigator.pop(context);}
                   },
                   child: Text('Yes'),
                 ),

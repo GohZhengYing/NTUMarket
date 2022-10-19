@@ -7,7 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import '../../search_results/search_results_screen.dart';
 
 
-const List<String> list = <String>['All','Exam Papers', 'Stationaries', 'Lecture Notes', 'Hardware',];
+const List<String> list = <String>['All','Exam Papers(Student answers)', 'Stationaries', 'Lecture Notes', 'Hardware','Others'];
 
 class AdvancedSearchSearchbars extends StatelessWidget {
   AdvancedSearchSearchbars({Key? key}) : super(key: key);

@@ -313,13 +313,32 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
             tag: "changepassword_btn",
             child: ElevatedButton(
               onPressed: () async {
+                showDialog(
+                    context: context
+                    , builder: (BuildContext context) {
+                  return Container(
+                    child: Center(
+                      child: SizedBox(height: 50.0,
+                        width:50.0,
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    color: Colors.white,
+
+                  );
+                }
+                );
                 if (formkey.currentState!.validate()) {
                   if (await ChangePassword(password_input.text)) {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   } else {
+                    Navigator.pop(context);
                     print("change password failed");
                   }
+                }
+                else{
+                  Navigator.pop(context);
                 }
               },
               child: AutoSizeText(

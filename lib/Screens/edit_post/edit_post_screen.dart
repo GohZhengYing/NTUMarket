@@ -16,6 +16,7 @@ class EditPostScreen extends StatefulWidget {
   Post post;
   EditPostScreen({Key? key,required this.post}) : super(key: key);
 
+
   @override
   _EditPostScreenState createState() => _EditPostScreenState();
 }
@@ -39,6 +40,10 @@ class _EditPostScreenState extends State<EditPostScreen> {
   //     image_input.text = widget.post.image;
   //   });
   // }
+
+
+
+
 
   void initState(){
     title_input.text = widget.post.title;
