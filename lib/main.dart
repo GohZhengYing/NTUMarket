@@ -1,5 +1,10 @@
 import 'dart:io';
 
+import 'package:NtuMarket/Screens/advanced_search/advanced_search_screen.dart';
+import 'package:NtuMarket/Screens/advanced_search/components/advanced_search_searchbars.dart';
+import 'package:NtuMarket/Screens/change_password/change_password_screen.dart';
+import 'package:NtuMarket/Screens/create_post/create_post_screen.dart';
+import 'package:NtuMarket/Screens/forget_password/forget_password_screen.dart';
 import 'package:NtuMarket/Screens/home/home_screen.dart';
 import 'package:NtuMarket/models/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -96,6 +101,7 @@ class _MyAppState extends State<MyApp> {
             ),
           )),
       home: loggedIn? const HomeScreen() : WelcomeScreen(),
+      //home: const ForgetPasswordScreen()
     );
   }
 }

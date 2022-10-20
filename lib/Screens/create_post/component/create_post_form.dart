@@ -35,7 +35,7 @@ class CreatePostForm extends StatefulWidget {
 }
 
 class _CreatePostForm extends State<CreatePostForm> {
-  String dropdownvalue = 'Exam Papers(Student answers)';
+  String dropdownvalue = 'Exam Papers-Student answers';
 
   final title_input2 = TextEditingController();
   final price_input2 = TextEditingController();

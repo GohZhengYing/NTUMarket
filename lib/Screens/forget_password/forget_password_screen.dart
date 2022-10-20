@@ -6,6 +6,7 @@ import '../../components/background.dart';
 import '../../responsive.dart';
 import '../Login/components//login_screen_top_image.dart';
 import 'components/forgetpassword_form.dart';
+var reSize = AutoSizeGroup();
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class MobileForgetPasswordScreen extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        AutoSizeText("Enter your email address",
+        AutoSizeText("Enter your email address",group: reSize,
             style: const TextStyle(
               color: Colors.black54,
               fontWeight: FontWeight.w500,

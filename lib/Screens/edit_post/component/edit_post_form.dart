@@ -250,7 +250,7 @@ class _EditPostForm extends State<EditPostForm> {
                   if (widget.category_input == null) {
                     setState(() {
 
-                      widget.category_input.text = 'Exam Papers(Student answers)';
+                      widget.category_input.text = 'Exam Papers-Student answers';
                     });
                   };
                   setState(() {
