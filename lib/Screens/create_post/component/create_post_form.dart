@@ -46,7 +46,7 @@ class _CreatePostForm extends State<CreatePostForm> {
 
 
   var items = [
-    'Exam Papers(Student answers)',
+    'Exam Papers-Student answers',
     'Stationaries',
     'Lecture Notes',
     'Hardware',
@@ -185,7 +185,7 @@ class _CreatePostForm extends State<CreatePostForm> {
                   if (widget.category_input == null) {
                     setState(() {
 
-                      widget.category_input.text = 'Exam Papers(Student answers)';
+                      widget.category_input.text = 'Exam Papers-Student answers';
                     });
                   };
 

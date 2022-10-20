@@ -105,13 +105,13 @@ class EditPostForm extends StatefulWidget {
 }
 
 class _EditPostForm extends State<EditPostForm> {
-  String dropdownvalue = 'Exam Papers(Student answers)';
+  String dropdownvalue = 'Exam Papers-Student answers';
   bool submitted = false;
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   var items = [
-    'Exam Papers(Student answers)',
+    'Exam Papers-Student answers',
     'Stationaries',
     'Lecture Notes',
     'Hardware',
