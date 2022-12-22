@@ -30,16 +30,7 @@ class _EditPostScreenState extends State<EditPostScreen> {
   final category_input = TextEditingController();
   final image_input = TextEditingController();
 
-  // void initState(){
-  //   super.initState();
-  //   setState((){
-  //     title_input.text = widget.post.title;
-  //     description_input.text = widget.post.description;
-  //     price_input.text = widget.post.price;
-  //     category_input.text = widget.post.category;
-  //     image_input.text = widget.post.image;
-  //   });
-  // }
+
 
 
 
@@ -69,16 +60,6 @@ class _EditPostScreenState extends State<EditPostScreen> {
             elevation: 0,
             leading: IconButton(onPressed:() {Navigator.pop(context);}, icon: Icon(Icons.keyboard_arrow_left),color: Colors.black,iconSize: 40),
             actions: [
-              // IconButton(
-              //   onPressed: () {},
-              //   icon: CircleAvatar(
-              //     backgroundColor: Colors.white,
-              //     child: Image.asset(
-              //       "assets/images/Dora.jpg",
-              //       height: 20,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
           body: LayoutBuilder(

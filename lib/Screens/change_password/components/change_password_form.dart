@@ -1,4 +1,4 @@
-import 'package:NtuMarket/models/model_provider.dart';
+import 'package:NtuMarket/data/model_provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 

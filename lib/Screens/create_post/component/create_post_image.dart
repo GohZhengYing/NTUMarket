@@ -53,13 +53,12 @@ class _CreatePostImageState extends State<CreatePostImage> {
 
 
   Future getImage(ImageSource media) async {
-    // await picker.retrieveLostData();
-    var img = await picker.pickImage(source: media);
-
+    var img = await picker.pickImage(source: media,maxHeight: 300);
     setState(() {
       widget.image = img;
       widget.image_input.text = base64Encode(File(widget.image?.path ?? "").readAsBytesSync());
     });
+
   }
 
 //show popup dialog

@@ -21,12 +21,10 @@ class UserStorage {
 
   Future<Map<String,dynamic>> readUser() async {
     File file = await _localFile;
-
     if(await file.exists()) {
       try {
         // Read the file
         final contents = await file.readAsString();
-        print(contents);
         return json.decode(contents);
       } catch (e) {
         // If encountering an error, return 0
@@ -67,16 +65,15 @@ class User {
   // ;
 
   factory User.fromJson(dynamic json) {
-    // print(json);
     // List<String> fav = [];
     //if(json['favourite_id'] != null &&json['favourite_id'].length > 0){
       //json['favourite_id'].map((l) => fav.add(l.toString()));
     //}
     return User(
-    email: json['email'],
-    token: json['token'],
-    image: json['image'],
-        favourite_id: json['favourite_id']
+    email: json['email']!=null? json['email']:"",
+    token: json['token']!=null? json['token']:"",
+    image: json['image']!=null? json['image']:"",
+        favourite_id: json['favourite_id']!=null? json['favourite_id']:[]
     );
 
   }

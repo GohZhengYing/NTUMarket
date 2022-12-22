@@ -3,7 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/model_provider.dart';
+import '../../../data/model_provider.dart';
 import '../../Welcome/welcome_screen.dart';
 import '../../change_password/change_password_screen.dart';
 import '../../home/home_screen.dart';

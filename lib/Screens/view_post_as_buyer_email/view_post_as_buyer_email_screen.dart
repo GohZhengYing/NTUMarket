@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants.dart';
 
-import '../../models/model_provider.dart';
+import '../../data/model_provider.dart';
 import '../../models/post.dart';
 import 'component/colordot.dart';
 import 'component/view_post_as_buyer_email_form.dart';

@@ -1,4 +1,4 @@
-import 'package:NtuMarket/models/model_provider.dart';
+import 'package:NtuMarket/data/model_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

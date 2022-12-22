@@ -11,46 +11,23 @@ import '../../view_post_as_owner/view_post_as_owner_screen.dart';
 
 
 
-class HomeRecentlyUsed extends StatefulWidget {
+class HomeMyPosts extends StatefulWidget {
 
-  List<Post> posts = [];
+
+
+  HomeMyPosts({super.key,required this.posts,required this.LoadPosts});
+  List<Post> posts;
   Function LoadPosts;
 
-  HomeRecentlyUsed({super.key,required this.posts,required this.LoadPosts});
-
   @override
-  State<HomeRecentlyUsed> createState() => _HomeRecentlyUsedState();
+  State<HomeMyPosts> createState() => _HomeMyPostsState();
 }
 
-class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
-  // List<Post> posts = [];
-  //
-  //
-  //
-  // @override
-  // Future<void> LoadPosts() async {
-  //   super.initState();
-  //   final PostStorage postStorage = new PostStorage();
-  //   List<Post>_posts = await postStorage.readPost();
-  //   setState(() {
-  //     posts = _posts;
-  //   });
-  //
-  //
-  // }
-  // // This widget is the root of your application.
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   LoadPosts();
-  //
-  // }
+class _HomeMyPostsState extends State<HomeMyPosts> {
 
 
   @override
   Widget build(BuildContext context) {
-
 
 
     return Column(
@@ -59,7 +36,7 @@ class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
             padding:EdgeInsets.fromLTRB(0, 30, 0, 10),
             child: SizedBox(
                 width: MediaQuery.of(context).size.width *0.867,
-                child:Text('Recently Uploaded',
+                child:Text('My Posts',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
@@ -78,10 +55,9 @@ class _HomeRecentlyUsedState extends State<HomeRecentlyUsed> {
               child: GestureDetector(
                 onTap: () async {
 
-                  String refresh = await                                         Navigator.of(context).push(
+                  String refresh = await Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => ViewPostAsOwnerScreen(post: post,))
                   );
-                  print(refresh);
                   if(refresh == 'refresh'){
                     widget.LoadPosts();
                   }

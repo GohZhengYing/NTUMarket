@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../constants.dart';
-import '../../../models/model_provider.dart';
+import '../../../data/model_provider.dart';
 
 
 class CreatePostForm extends StatefulWidget {
@@ -14,7 +14,7 @@ class CreatePostForm extends StatefulWidget {
   TextEditingController category_input;
   TextEditingController image_input ;
   bool submitted;
-  Function ss;
+  Function CreatePostClicked;
 
   CreatePostForm({
     Key? key,
@@ -24,7 +24,7 @@ class CreatePostForm extends StatefulWidget {
     required this.category_input,
     required this.image_input,
     required this.submitted,
-    required this.ss
+    required this.CreatePostClicked
 
   }) : super(key: key);
 
@@ -91,8 +91,6 @@ class _CreatePostForm extends State<CreatePostForm> {
               if (value!.isEmpty) {
                 return "Title cannot be blank";
               } else {
-                print("after");
-                print(widget.image_input.text);
                 return null;
               }
             },
@@ -190,7 +188,7 @@ class _CreatePostForm extends State<CreatePostForm> {
                   };
 
                   setState(() {
-                    widget.ss();
+                    widget.CreatePostClicked();
                     // widget.submitted = true;
                   });
 

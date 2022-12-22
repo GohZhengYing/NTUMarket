@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
-import '../../../models/model_provider.dart';
+import '../../../data/model_provider.dart';
 import '../../Signup/signup_screen.dart';
 
 import '../../forget_password/forget_password_screen.dart';
@@ -22,6 +22,7 @@ class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool _isVisible = false;
   bool submitted = false;
+  bool login_failed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class _LoginFormState extends State<LoginForm> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
+          !login_failed? Text(""):Text("Login failed, invalid email or password",style: TextStyle(color: Colors.red)),
           TextFormField(
             autofillHints: [AutofillHints.email],
             controller: email_input,
@@ -116,15 +118,17 @@ class _LoginFormState extends State<LoginForm> {
 
                 if (formkey.currentState!.validate()) {
                   if (await Login(email_input.text, password_input.text)) {
-                    print('logged in');
+                    print('Logged in');
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   } else{
-                    print('login failed');}
+                    print('Login failed');}
                 } else {
-                  print("incorrect input retype");
+
+                  print("incorrect input");
                 }
                 setState(() {
+                  login_failed = true;
                   submitted = false;
                 });
               },

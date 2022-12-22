@@ -41,7 +41,9 @@ class SettingsList extends StatelessWidget {
           ,),
         OutlinedButton(onPressed: () {
           final UserStorage userStorage = new UserStorage();
+          final PostStorage postStorage = new PostStorage();
           userStorage.writeUser(User(email: '',token: '',image: '',favourite_id: []));
+          postStorage.writePost([]);
           print("logged out");
           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const LoginScreen()));
         },

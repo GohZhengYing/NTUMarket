@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/model_provider.dart';
+import '../../data/model_provider.dart';
 import '../../models/post.dart';
 import 'components/search_results_results_list.dart';
 import 'components/search_results_searchbar.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants.dart';
-import '../../models/model_provider.dart';
+import '../../data/model_provider.dart';
 import '../../models/post.dart';
 import '../edit_post/edit_post_screen.dart';
 import 'component/ProductOwner.dart';
@@ -24,6 +24,9 @@ class ViewPostAsOwnerScreen extends StatefulWidget {
 class _ViewPostAsOwnerScreenState extends State<ViewPostAsOwnerScreen> {
 
 
+  static const snackBar = SnackBar(
+    content: Text('Smoething went wrong, try again later'),
+  );
 
   bool submitted = false;
 
@@ -40,16 +43,7 @@ class _ViewPostAsOwnerScreenState extends State<ViewPostAsOwnerScreen> {
             elevation: 0,
             leading: IconButton(onPressed:() {Navigator.pop(context);}, icon: Icon(Icons.keyboard_arrow_left),color: Colors.black,iconSize: 40),
             actions: [
-              // IconButton(
-              //   onPressed: () {},
-              //   icon: CircleAvatar(
-              //     backgroundColor: Colors.white,
-              //     child: Image.asset(
-              //       "assets/images/Dora.jpg",
-              //       height: 20,
-              //     ),
-              //   ),
-              // ),
+
             ],
           ),
           body: Column(
@@ -91,28 +85,6 @@ class _ViewPostAsOwnerScreenState extends State<ViewPostAsOwnerScreen> {
                           widget.post.description,
                         ),
                       ),
-                      // Text(
-                      //   "Colors",
-                      //   style: Theme.of(context).textTheme.subtitle2,
-                      // ),
-                      // const SizedBox(height: defaultPadding / 2),
-                      // Row(
-                      //   children: const [
-                      //     const Spacer(),
-                      //     ColorDot(
-                      //       color: Color.fromARGB(255, 10, 122, 6),
-                      //       isActive: false,
-                      //     ),
-                      //     ColorDot(
-                      //       color: Color(0xFF141B4A),
-                      //       isActive: true,
-                      //     ),
-                      //     ColorDot(
-                      //       color: Color(0xFFF4E5C3),
-                      //       isActive: false,
-                      //     ),
-                      //   ],
-                      // ),
                       const SizedBox(height: defaultPadding * 2),
                       Center(
                         child: Row(
@@ -177,12 +149,14 @@ class _ViewPostAsOwnerScreenState extends State<ViewPostAsOwnerScreen> {
                                                 );
                                                 if(await DeletePost(widget.post.id)){
                                                 print('deleted post');
-                                                Navigator.pop(context);
-                                                Navigator.pop(context);
+                                                Navigator.pop(context,'refresh');
+                                                Navigator.pop(context,'refresh');
                                                 Navigator.pop(context,'refresh');
                                                 }
                                                 else
-                                                print('delete failed');
+                                                  {Navigator.pop(context,'refresh');
+                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                print('delete failed');}
                                               },
                                               child: Text('Yes'),
                                             ),

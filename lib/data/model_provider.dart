@@ -13,18 +13,15 @@ import 'package:http/http.dart' as http;
 final String url = "ntumarket.herokuapp.com";
 
 Future<bool> Initialize() async {
-
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());
   final PostStorage postStorage = new PostStorage();
-
   if(user.token != '' && user.email != ''){
-  print(true);
+  print("Already logged in");
   var response = await http.post(Uri.http(url, "/login"), body: {
     "email": user.email,
     "token": user.token,
   });
-
   if(json.decode(response.body)['status']){
     userStorage.writeUser(User.fromJson(json.decode(response.body)));
     List<Post> posts = [];
@@ -34,7 +31,7 @@ Future<bool> Initialize() async {
 
     postStorage.writePost(posts);
 
-    print("post loaded");
+    print("Posts loaded");
     return true;
   }
   else
@@ -49,28 +46,20 @@ Future<bool> Initialize() async {
 }
 
 Future<bool> Login(String email,String password) async {
-  print(email+','+password);
   final UserStorage userStorage = new UserStorage();
   final PostStorage postStorage = new PostStorage();
-
   var response = await http.post(Uri.http(url, "login"), body: {
     "email": email,
     "password": password,
   });
-
   if(json.decode(response.body)['status']){
     userStorage.writeUser(User.fromJson(json.decode(response.body)));
-
     List<Post> posts = [];
-    //print(json.decode(response.body)['posts'][0]['_id']);
     Iterable l = json.decode(response.body)['posts'];
-    print("here");
+
     for(int i =0;i<l.length;i++){
       posts.add(Post.fromJson( l.elementAt(i)));}
-
     postStorage.writePost(posts);
-
-    print("post loaded");
     return true;}
   else
     return false;
@@ -80,7 +69,6 @@ Future<bool> Login(String email,String password) async {
 
 Future<bool> Signup(String email,String password) async {
 
-  print(email+','+password);
   final UserStorage userStorage = new UserStorage();
   final PostStorage postStorage = new PostStorage();
 
@@ -92,7 +80,6 @@ Future<bool> Signup(String email,String password) async {
   if(json.decode(response.body)['status']){
     userStorage.writeUser(User.fromJson(json.decode(response.body)));
     User user = User.fromJson(await userStorage.readUser());
-    //print(await 'Storage Email:${user.email}, Token:${user.token}, image:${user.image}');
 
     List<Post> posts = [];
     Iterable l = json.decode(response.body)['posts'];
@@ -124,7 +111,7 @@ Future<bool> DeleteAccount() async {
     postStorage.writePost([]);
 
 
-    print("deleted");
+    print("Account deleted");
 
     return true;
   }
@@ -134,8 +121,6 @@ Future<bool> DeleteAccount() async {
 }
 
 Future<bool> ForgetPassword(String email) async {
-
-  print(email);
 
   var response = await http.patch(Uri.http(url, "login"), body: {
     "email": email,
@@ -149,8 +134,6 @@ Future<bool> ForgetPassword(String email) async {
 }
 
 Future<bool> ChangePassword(String password) async {
-
-  print(password);
 
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());
@@ -169,7 +152,6 @@ Future<bool> ChangePassword(String password) async {
 }
 
 Future<bool> CreatePost(String title,String description,String price, String image, String category) async {
-  print("from provider"+title+','+description+','+price+','+image+','+category);
   final PostStorage postStorage = new PostStorage();
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());
@@ -202,7 +184,6 @@ Future<bool> CreatePost(String title,String description,String price, String ima
 }
 
 Future<bool> EditPost(String title,String description,String price, String image, String category, String id) async {
-  print(title+','+description+','+price+','+image+','+category);
   final PostStorage postStorage = new PostStorage();
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());
@@ -236,7 +217,6 @@ Future<bool> EditPost(String title,String description,String price, String image
 }
 
 Future<bool> DeletePost(String id) async {
-  print(id);
   final PostStorage postStorage = new PostStorage();
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());
@@ -269,7 +249,6 @@ Future<List<Post>> SearchPost(String title,String category) async {
   User user = User.fromJson(await userStorage.readUser());
   title = title!=''?title:'EmPtYtItLe';
   category = category!=''?category:'All';
-  print('.'+title+'and'+category);
   var response = await http.get(Uri.http(url, "post/${title}/${category}"));
 
   List<Post> posts = [];
@@ -285,7 +264,6 @@ Future<List<Post>> SearchPost(String title,String category) async {
 }
 
 Future<bool> AddFavourites(String id) async {
-  print(id);
   final PostStorage postStorage = new PostStorage();
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());
@@ -330,7 +308,6 @@ Future<List<Post>> FetchFavourites() async {
 
 
 Future<bool> DeleteFavourites(String id) async {
-  print(id);
   final PostStorage postStorage = new PostStorage();
   final UserStorage userStorage = new UserStorage();
   User user = User.fromJson(await userStorage.readUser());

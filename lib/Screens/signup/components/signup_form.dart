@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
-import '../../../models/model_provider.dart';
+import '../../../data/model_provider.dart';
 import '../../Login/login_screen.dart';
 import '../../home/home_screen.dart';
 

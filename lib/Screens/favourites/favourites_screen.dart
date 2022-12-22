@@ -1,4 +1,4 @@
-import 'package:NtuMarket/models/model_provider.dart';
+import 'package:NtuMarket/data/model_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,23 +17,23 @@ class FavouritesScreen extends StatefulWidget {
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
 
-  late GlobalKey<ScaffoldState> _scaffoldKey;
-
-  bool submitted = true;
+  bool loading = true;
   bool refresh = false;
   List<Post> posts = [];
 
-  void ref(){
+  void refresh_page(){
+    setState(() {
+      loading = true;
+    });
     LoadPosts();
 }
 
   @override
   Future<void> LoadPosts() async {
-    super.initState();
     List<Post>_posts = await FetchFavourites();
     setState(() {
+      loading = false;
       posts = _posts;
-      submitted = false;
     });
 
 
@@ -41,8 +41,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   // This widget is the root of your application.
 
   void initState(){
-    _scaffoldKey = GlobalKey();
-    super.initState();
+
     LoadPosts();
   }
 
@@ -69,7 +68,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           backgroundColor: Colors.white,
           body:  LayoutBuilder(
             builder: (BuildContext context, BoxConstraints viewportConstraints) {
-              if(submitted){
+              if(loading){
+                loading = false;
+                LoadPosts();
                 return Container(
                   child: Center(
                     child: SizedBox(height: 50.0,
@@ -91,7 +92,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       child: Column(
                         children: <Widget>[
 
-                          FavouritesList(posts: posts, ref: ref,),
+                          FavouritesList(posts: posts, refresh_page: refresh_page,),
                           refresh? Container():Container()
                         ],
                       ),

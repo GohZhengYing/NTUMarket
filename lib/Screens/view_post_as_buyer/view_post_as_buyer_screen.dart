@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:NtuMarket/models/model_provider.dart';
+import 'package:NtuMarket/data/model_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants.dart';
@@ -28,11 +28,8 @@ class _ViewPostAsBuyerScreenState extends State<ViewPostAsBuyerScreen> {
   MaterialColor fav = Colors.grey ;
 
   Future<void> LoadUser() async {
-    super.initState();
     final UserStorage userStorage = new UserStorage();
     User _user = User.fromJson(await userStorage.readUser());
-    print(_user.favourite_id);
-    print(widget.post.id);
     setState(() {
       if(_user.favourite_id.contains(widget.post.id)){
         fav = Colors.yellow;
@@ -44,7 +41,6 @@ class _ViewPostAsBuyerScreenState extends State<ViewPostAsBuyerScreen> {
   // This widget is the root of your application.
 
   void initState(){
-    super.initState();
     LoadUser();
   }
 

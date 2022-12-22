@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants.dart';
 
-import '../../models/model_provider.dart';
+import '../../data/model_provider.dart';
 import '../Favourites/favourites_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class CreatePostScreen extends StatefulWidget {
 }
 class _CreatePostScreenState extends State<CreatePostScreen> {
 
-  Future<void> ss() async {
+  Future<void> CreatePostClicked() async {
     setState(() {
       widget.submitted = widget.submitted? false:true;
     });
@@ -67,16 +67,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 color: Colors.black,
                 iconSize: 40),
             actions: [
-              // IconButton(
-              //   onPressed: () {},
-              //   icon: CircleAvatar(
-              //     backgroundColor: Colors.white,
-              //     child: Image.asset(
-              //       "assets/images/Dora.jpg",
-              //       height: 20,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
           body: LayoutBuilder(
@@ -120,7 +110,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                     category_input: widget.category_input,
                                     image_input: widget.image_input,
                                     submitted: widget.submitted,
-                                    ss:ss
+                                    CreatePostClicked:CreatePostClicked
                                 ),
                               ),
                               Spacer(),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +9,10 @@ import '../../models/post.dart';
 import '../Favourites/favourites_screen.dart';
 import '../advanced_search/advanced_search_screen.dart';
 import '../create_post/create_post_screen.dart';
+import '../settings/settings_screen.dart';
 import '../view_user_profile/view_user_profile_screen.dart';
 import 'components/home_categories.dart';
-import 'components/home_recently_uploaded.dart';
+import 'components/home_my_posts.dart';
 import 'components/home_search_bar.dart';
 
 
@@ -26,30 +29,43 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   List<Post> posts = [];
+  bool loaded = false;
+  int times =0;
+  String err = "";
 
 
 
   @override
   Future<void> LoadPosts() async {
-    super.initState();
-    final PostStorage postStorage = new PostStorage();
-    List<Post>_posts = await postStorage.readPost();
-    setState(() {
-      posts = _posts;
-    });
+    try{
+      final PostStorage postStorage = new PostStorage();
+      List<Post>_posts = await postStorage.readPost();
+      setState(() {
+        loaded = true;
+        posts = _posts;
+      });
+    }
+    catch(e){
+      LoadPosts();
+      // setState(() {
+      //   times = -1;
+      //   err = e.toString();
+      // });
+
+    }
+
 
 
   }
   // This widget is the root of your application.
 
   void initState(){
-    //_scaffoldKey = GlobalKey();
-    super.initState();
     LoadPosts();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async => false,
@@ -79,21 +95,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.post_add),
                       onPressed: () async {
 
-                        String refresh = await                       Navigator.of(context).push(
+                        String refresh = await Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => CreatePostScreen(),
                             )
                         );
+                        //     .then((_) => setState(() {
+                        //   LoadPosts();
+                        // }));
                         print(refresh);
                         if(refresh == 'refresh'){
                           LoadPosts();
                         }
 
-                        // Navigator.of(context).push(
-                        //     MaterialPageRoute(
-                        //       builder: (context) => CreatePostScreen(),
-                        //     )
-                        // );
+
+
                       },
                     ),
                     IconButton(
@@ -119,12 +135,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     IconButton(
-                      tooltip: 'contact',
-                      icon: const Icon(Icons.account_circle),
+                      tooltip: 'settings',
+                      icon: const Icon(Icons.settings),
                       onPressed: () {
                         Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ViewUserProfileScreen(),
+                              builder: (context) => SettingsScreen(),
                             )
                         );
                       },
@@ -148,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: <Widget>[
                             //HomeSearchBar(),
                             //HomeCategories(),
-                            HomeRecentlyUsed(posts:posts,LoadPosts: LoadPosts,)
+                            HomeMyPosts(posts:posts,LoadPosts: LoadPosts)
                           ],
                         ),
                       ),

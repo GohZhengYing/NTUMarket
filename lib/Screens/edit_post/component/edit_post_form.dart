@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../models/model_provider.dart';
+import '../../../data/model_provider.dart';
 import '../../../models/post.dart';
 
 
@@ -261,8 +261,8 @@ class _EditPostForm extends State<EditPostForm> {
                       widget.price_input.text, widget.image_input.text,
                       widget.category_input.text, widget.post.id)) {
                     print('edited post');
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.pop(context, 'refresh');
+                    Navigator.pop(context, 'refresh');
                     Navigator.pop(context, 'refresh');
                   }
                   else
