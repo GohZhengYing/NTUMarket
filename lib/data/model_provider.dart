@@ -9,8 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 
-// final String url = "10.0.2.2:5000";
-final String url = "ntumarket.herokuapp.com";
+final String url = "10.0.2.2:5000";
 
 Future<bool> Initialize() async {
   final UserStorage userStorage = new UserStorage();
