@@ -1,16 +1,8 @@
-# cz3002app
+# NTU Market
 
-A new Flutter project.
+NTU Market is a mobile application where NTU students can buy or sell coursework related materials. Users will sign up using their NTU email to ensure that the platform is only accessible to NTU students. Users can also search for an item using the category or name of the material and a post can be favorited to be viewed again at a later time . Users can then contact each other to strike a deal via email information written in the post.
 
-## Getting Started
+## Details
 
-This project is a starting point for a Flutter application.
+The front-end of this project is built using Flutter
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
