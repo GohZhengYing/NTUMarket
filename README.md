@@ -6,3 +6,5 @@ NTU Market is a mobile application where NTU students can buy or sell coursework
 
 The front-end of this project is built using Flutter
 
+The back-end of this project is built using Node
+
